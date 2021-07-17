@@ -20,13 +20,17 @@
 <div id="app">
 
   <div id="wrapper">
+
+
     <!-- Sidebar -->
+  <nav id="sidebar" v-show="$route.path === '/' || $route.path == '/register' || $route.path == '/forget' ? false : true "  style="display:  none;">
+
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
           <img src="{{ asset('backend/img/logo/logo2.png') }}">
         </div>
-        <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+        <div class="sidebar-brand-text mx-3">PMS Admin</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
@@ -112,10 +116,18 @@
       <div class="version" id="version-ruangadmin"></div>
     </ul>
     <!-- Sidebar -->
+    </nav>
+
+
+
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
+
+
         <!-- TopBar -->
-        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top" id="topbar" v-show="$route.path === '/' || $route.path == '/register' || $route.path == '/forget' ? false : true " style="display: none;">
+
+
           <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
@@ -275,7 +287,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img class="img-profile rounded-circle" src="{{ asset('backend/img/boy.png') }}" style="max-width: 60px">
-                <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+                <router-link to="/logout" class="ml-2 d-none d-lg-inline text-white small">Logout</router-link>
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
@@ -322,6 +334,16 @@
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <script type="text/javascript">
+    let token= localStorage.getItem('token')
+    if (token) {
+      $("#sidebar").css("display","");
+      $("#topbar").css("display","");
+    }
+  </script>
+
+
   <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
   <script src="{{ asset('backend/js/ruang-admin.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>
