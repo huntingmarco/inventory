@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+        <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
 
     </div>
 
@@ -14,9 +14,9 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Add Employee</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Supplier Update</h1>
                   </div>
-                  <form class="user" @submit.prevent="employeeInsert" enctype="multipart/form-data">
+                  <form class="user" @submit.prevent="supplierUpdate" enctype="multipart/form-data">
                   
                     <div class="form-group">
                         <div class="form-row">
@@ -27,7 +27,7 @@
 
                             <div class="col-md-6">
                                 <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email" v-model="form.email">
-                                <small class="text-danger" v-if="errors.email">{{ errors.name[0] }}</small>
+                                <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                             </div>
                         </div>
                     </div>
@@ -40,22 +40,8 @@
                             </div>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Salary" v-model="form.salary">
-                                <small class="text-danger" v-if="errors.salary">{{ errors.salary[0] }}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter joining date" v-model="form.joining_date">
-                                <small class="text-danger" v-if="errors.joining_date">{{ errors.joining_date[0] }}</small>
-                            </div>
-
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter NID" v-model="form.nid">
-                                <small class="text-danger" v-if="errors.nid">{{ errors.nid[0] }}</small>
+                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Company Name" v-model="form.companyname">
+                                <small class="text-danger" v-if="errors.companyname">{{ errors.companyname[0] }}</small>
                             </div>
                         </div>
                     </div>
@@ -88,7 +74,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Save</button>
+                      <button type="submit" class="btn btn-primary btn-block">Update</button>
                     </div>
                    
                   </form>
@@ -120,17 +106,22 @@ created(){
 data(){
   return {
     form:{
-      name: null,
-      email: null,
-      phone: null,
-      salary: null,
-      address: null,
-      photo: null,
-      nid: null,
-      joining_date: null
+      name: '',
+      email: '',
+      phone: '',
+      companyname: '',
+      address: '',
+      photo: '',
+      newphoto: ''
       },
       errors: {}  
     }
+  },
+  created(){
+      let id = this.$route.params.id;
+      axios.get('/api/supplier/'+id)
+      .then(({data})=>this.form = data)
+      .catch(console.log('error'))
   },
 
   methods: {
@@ -141,17 +132,17 @@ data(){
       }else {
         let reader = new FileReader();
         reader.onload = event => {
-          this.form.photo = event.target.result
-          console.log(event.target.result);
+          this.form.newphoto = event.target.result
         };
         reader.readAsDataURL(file);
 
       }
     },
-    employeeInsert(){
-      axios.post('/api/employee', this.form)
+    supplierUpdate(){
+        let id = this.$route.params.id;
+      axios.patch('/api/supplier/'+id, this.form)
       .then(res => {
-          this.$router.push({name: 'employee'})
+          this.$router.push({name: 'supplier'})
           Notification.success();
         })
         .catch(error => this.errors = error.response.data.errors)
