@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/store-supplier" class="btn btn-primary">Add Supplier</router-link>
+        <router-link to="/store-product" class="btn btn-primary">Add Product</router-link>
 
     </div>
     <br>
@@ -14,31 +14,35 @@
               <!-- Simple Tables -->
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Supplier List</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Product List</h6>
                 </div>
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
                         <th>Name</th>
+                        <th>Code</th>
                         <th>Photo</th>
-                        <th>Phone</th>
-                        <th>Company Name</th>
-                        <th>Email</th>
+                        <th>Category</th>
+                        <th>Buying Price</th>
+                        <th>Selling Price</th>
+                        <th>Root</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="supplier in filtersearch" :key="supplier.id">
-                        <td>{{ supplier.name }}</td>
-                        <td><img :src="supplier.photo" id="em_photo"></td>
-                        <td>{{ supplier.phone }}</td>
-                        <td>{{ supplier.companyname }}</td>
-                        <td>{{ supplier.email }}</td>
+                      <tr v-for="product in filtersearch" :key="product.id">
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_code }}</td>
+                        <td><img :src="product.image" id="em_photo"></td>
+                        <td>{{ product.category_name }}</td>
+                        <td>{{ product.buying_price }}</td>
+                        <td>{{ product.selling_price }}</td>
+                        <td>{{ product.root }}</td>
             <td>
-                <router-link :to="{name: 'edit-supplier', params:{id:supplier.id}}" class="btn btn-sm btn-primary">Edit</router-link>
+                <router-link :to="{name: 'edit-product', params:{id:product.id}}" class="btn btn-sm btn-primary">Edit</router-link>
 
-                <a @click="deleteSupplier(supplier.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Delete</font></a>
+                <a @click="deleteProduct(product.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Delete</font></a>
             </td>
                       </tr>
                       
@@ -66,25 +70,25 @@ export default {
     },
     data(){
         return {
-            suppliers:[],
+            products:[],
             searchItem: '',
         }
     },
     computed:{
         filtersearch(){
-            return this.suppliers.filter(supplier =>{
-                return supplier.name.match(this.searchItem)
+            return this.products.filter(product =>{
+                return product.product_name.match(this.searchItem)
             })
         }
     },
 
     methods: {
-        allSupplier(){
-        axios.get('/api/supplier/')
-        .then(({data}) => (this.suppliers = data))
+        allProduct(){
+        axios.get('/api/product/')
+        .then(({data}) => (this.products = data))
         .catch()
         },
-        deleteSupplier(id){
+        deleteProduct(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -95,14 +99,14 @@ export default {
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('/api/supplier/'+id)
+                axios.delete('/api/product/'+id)
                 .then(()=>{
-                    this.suppliers  = this.suppliers.filter(supplier =>{
-                        return supplier.id != id
+                    this.products  = this.products.filter(product =>{
+                        return product.id != id
                     })
                 })
                 .catch(()=>{
-                    this.$router.push({name: 'supplier'})
+                    this.$router.push({name: 'product'})
                 })
 
                 Swal.fire(
@@ -115,9 +119,10 @@ export default {
         }
 
 
+
     },
     created(){
-        this.allSupplier();
+        this.allProduct();
     }
   
 }

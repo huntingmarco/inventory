@@ -83,8 +83,8 @@
         </a>
         <div id="collapseBootstrap3" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <router-link class="collapse-item" to="">Products</router-link>
-            <router-link class="collapse-item" to="">Product Category</router-link>
+            <router-link class="collapse-item" to="/product">Products</router-link>
+            <router-link class="collapse-item" to="/category">Product Category</router-link>
             <router-link class="collapse-item" to="/supplier">Suppliers</router-link>
             <router-link class="collapse-item" to="">Customers</router-link>
             <router-link class="collapse-item" to="/employee">Employees</router-link>
@@ -343,7 +343,21 @@
         <!---Container Fluid-->
       </div>
   
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+              <b><a href="https://www.capturebay.com/" target="_blank">Capture Bay</a></b>
+            </span>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
+
+
     </div>
+
   </div>
 
 </div>
