@@ -27,6 +27,27 @@ let storeproduct = require('./components/product/create.vue').default;
 let product = require('./components/product/index.vue').default;
 let editproduct = require('./components/product/edit.vue').default;
 
+// Expense Component 
+let storeexpense = require('./components/expense/create.vue').default;
+let expense = require('./components/expense/index.vue').default;
+let editexpense = require('./components/expense/edit.vue').default;
+
+  // Payroll Component 
+  let addpayroll = require('./components/payroll/add_payroll.vue').default;
+  let paysalary = require('./components/payroll/create.vue').default;
+  let payroll = require('./components/payroll/index.vue').default;
+  let viewpayroll = require('./components/payroll/view.vue').default;
+  let editpayroll = require('./components/payroll/edit.vue').default;
+
+  // Stock Component 
+  let stock = require('./components/product/stock.vue').default;
+  let editstock = require('./components/product/edit-stock.vue').default;
+
+  // Customer component
+  let storecustomer = require('./components/customer/create.vue').default;
+  let customer = require('./components/customer/index.vue').default;
+  let editcustomer = require('./components/customer/edit.vue').default;
+  
 export const routes = [
     { path: '/', component: login, name: '/' },
     { path: '/register', component: register, name: 'register' },
@@ -49,9 +70,32 @@ export const routes = [
     { path: '/category', component: category, name: 'category' },
     { path: '/edit-category/:id', component: editcategory, name: 'edit-category' },
 
-      // Product Routes
+    // Product Routes
     { path: '/store-product', component: storeproduct, name:'store-product'},
     { path: '/product', component: product, name:'product'},
     { path: '/edit-product/:id', component: editproduct, name:'edit-product'},
 
+    // Expense Routes
+    { path: '/store-expense', component: storeexpense, name:'store-expense'},
+    { path: '/expense', component: expense, name:'expense'},
+    { path: '/edit-expense/:id', component: editexpense, name:'edit-expense'},
+
+    // Salary Routes
+   
+    { path: '/add-payroll', component: addpayroll, name:'add-payroll'},
+    { path: '/pay-salary/:id', component: paysalary, name:'pay-salary'},
+
+    { path: '/payroll', component: payroll, name:'payroll'},
+    { path: '/view-payroll/:id', component: viewpayroll, name:'view-salary'},
+    { path: '/edit-payroll/:id', component: editpayroll, name:'edit-payroll'},
+
+    // Stocks Routes
+    { path: '/stock', component: stock, name:'stock'},
+    { path: '/edit-stock/:id', component: editstock, name:'edit-stock'},
+
+    // Customer Routes
+    { path: '/store-customer', component: storecustomer, name: 'store-customer' },
+    { path: '/customer', component: customer, name: 'customer' },
+    { path: '/edit-customer/:id', component: editcustomer, name: 'edit-customer' },
+        
   ]

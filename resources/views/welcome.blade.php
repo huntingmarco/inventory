@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="{{ asset('backend/img/logo/logo.png') }}" rel="icon">
-  <title>PMS Admin - Dashboard</title>
+  <title>Hotel and Inventory</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css')}}">
 
   <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -38,6 +38,13 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></router-link>
       </li>
+
+      <li class="nav-item bg-info">
+        <router-link class="nav-link" to="/home">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>POS</span></router-link>
+      </li>
+
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Admin
@@ -67,10 +74,10 @@
         </a>
         <div id="collapseBootstrap2" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <router-link class="collapse-item" to="">Billing</router-link>
             <router-link class="collapse-item" to="">Point of Sale</router-link>
-            <router-link class="collapse-item" to="">Expenses</router-link>
-            <router-link class="collapse-item" to="">Employee Salary Expenses</router-link>
+            <router-link class="collapse-item" to="">Billing</router-link>
+            <router-link class="collapse-item" to="/expense">Expenses</router-link>
+            <router-link class="collapse-item" to="/customer">Customers</router-link>
           </div>
         </div>
       </li>
@@ -85,14 +92,31 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <router-link class="collapse-item" to="/product">Products</router-link>
             <router-link class="collapse-item" to="/category">Product Category</router-link>
+            <router-link class="collapse-item" to="/stock">Stocks</router-link>
             <router-link class="collapse-item" to="/supplier">Suppliers</router-link>
-            <router-link class="collapse-item" to="">Customers</router-link>
-            <router-link class="collapse-item" to="/employee">Employees</router-link>
           </div>
         </div>
       </li>
     
       <hr class="sidebar-divider">
+
+      <!-- Payroll -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap4"
+          aria-expanded="true" aria-controls="collapseBootstrap4">
+          <i class="far fa-fw fa-window-maximize"></i>
+          <span>Payroll</span>
+        </a>
+        <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <router-link class="collapse-item" to="/payroll">Payroll</router-link>
+            <router-link class="collapse-item" to="/add-payroll">Add Payroll</router-link>
+            <router-link class="collapse-item" to="/employee">Employees</router-link>
+          </div>
+        </div>
+      </li>
+    
+      <hr class="sidebar-divider">      
 
       <!-- Accounting -->
       <div class="sidebar-heading">
@@ -347,7 +371,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
+            <span>copyright &copy; 2021 - developed by
               <b><a href="https://www.capturebay.com/" target="_blank">Capture Bay</a></b>
             </span>
           </div>
