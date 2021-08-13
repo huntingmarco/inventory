@@ -40,7 +40,7 @@
       </li>
 
       <li class="nav-item bg-info">
-        <router-link class="nav-link" to="/home">
+        <router-link class="nav-link" to="/pos">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>POS</span></router-link>
       </li>
@@ -74,7 +74,9 @@
         </a>
         <div id="collapseBootstrap2" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <router-link class="collapse-item" to="">Point of Sale</router-link>
+            <router-link class="collapse-item" to="/pos">Point of Sale</router-link>
+            <router-link class="collapse-item" to="/sales">Sales</router-link>
+            <router-link class="collapse-item" to="/searchsales">Search Sales</router-link>
             <router-link class="collapse-item" to="">Billing</router-link>
             <router-link class="collapse-item" to="/expense">Expenses</router-link>
             <router-link class="collapse-item" to="/customer">Customers</router-link>

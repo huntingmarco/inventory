@@ -47,6 +47,15 @@ let editexpense = require('./components/expense/edit.vue').default;
   let storecustomer = require('./components/customer/create.vue').default;
   let customer = require('./components/customer/index.vue').default;
   let editcustomer = require('./components/customer/edit.vue').default;
+
+  // POS component
+  let pos = require('./components/pos/pointofsale.vue').default;
+
+  // Sales component
+  let sales = require('./components/sales/sales.vue').default;
+  let viewsales = require('./components/sales/viewsales.vue').default;
+  let searchsales = require('./components/sales/searchsales.vue').default;
+
   
 export const routes = [
     { path: '/', component: login, name: '/' },
@@ -98,4 +107,11 @@ export const routes = [
     { path: '/customer', component: customer, name: 'customer' },
     { path: '/edit-customer/:id', component: editcustomer, name: 'edit-customer' },
         
+    // POS Routes
+    { path: '/pos', component: pos, name: 'pos' },
+
+    // Sales Routes
+    { path: '/sales', component: sales, name: 'sales' },
+    { path: '/view-sales/:id', component: viewsales, name: 'view-sales' },
+    { path: '/searchsales', component: searchsales, name: 'searchsales' },
   ]
