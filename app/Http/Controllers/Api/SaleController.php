@@ -10,10 +10,14 @@ class SaleController extends Controller
 {
     public function TodaySales(){
      
-        $data = date('d/m/Y');
+        //$data = date('d/m/Y');
+
+        $settings = DB::table('settings')->first();
+        $sysdate = $settings->sysdate;
+
         $sale = DB::table('sales')
            ->join('customers','sales.customer_id','customers.id')
-           ->where('sale_date',$data)
+           ->where('sale_date',$sysdate)
            ->select('customers.name','sales.*')
            ->orderBy('sales.id','DESC')->get();
            return response()->json($sale); 
@@ -25,7 +29,7 @@ class SaleController extends Controller
             ->join('customers','sales.customer_id','customers.id')
             ->where('sales.id',$id)
             ->select('customers.name','customers.phone','customers.address','sales.*')
-            ->first();
+            ->get();
             return response()->json($sale);
     }
  

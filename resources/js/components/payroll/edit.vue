@@ -2,8 +2,8 @@
     <div>
 
     <div class="row">
-        <router-link to="/payroll" class="btn btn-primary">Go Back</router-link>
-
+        <!-- <router-link to="/view-salary" class="btn btn-primary"></router-link> -->
+        <router-link :to="{name: 'view-salary', params:{id:this.pay_id}}" class="btn btn-sm btn-primary">Back</router-link>
     </div>
 
         <div class="row justify-content-center">
@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Name" v-model="form.name">
+                                <input type="text" class="form-control" disabled id="exampleInputFirstName" placeholder="Enter Your Name" v-model="form.name">
                                 <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                             </div>
 
@@ -34,24 +34,7 @@
 
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="exampleFormControlSelect1">Months</label>
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="form.salary_month">
-                                    <option value="January"> January </option>
-                                    <option value="February"> February </option>
-                                    <option value="March"> March </option>
-                                    <option value="April"> April </option>
-                                    <option value="May"> May </option>
-                                    <option value="Jun"> Jun </option>
-                                    <option value="July"> July </option>
-                                    <option value="August"> August </option>
-                                    <option value="September"> September </option>
-                                    <option value="October"> October </option>
-                                    <option value="November"> November </option>
-                                    <option value="December"> December </option>
-                                </select>   
-                                <small class="text-danger" v-if="errors.salary_month">{{ errors.salary_month[0] }}</small>
-                            </div>
+                           
 
                             <input type="hidden" v-model="form.employee_id">
                             <div class="col-md-6">
@@ -62,7 +45,7 @@
                         </div>
                     </div>
           
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                       <button type="submit" class="btn btn-primary btn-block">Update</button>
                     </div>
                    
@@ -99,13 +82,15 @@ data(){
       email: '',
       salary_month: '',
       amount: '',
-      employee_id:''
+      employee_id:'',
+      pay_id:''
       },
       errors: {}  
     }
   },
   created(){
       let id = this.$route.params.id;
+      this.pay_id = this.$route.params.pay_id;
       axios.get('/api/edit/payroll/'+id)
       .then(({data})=>this.form = data)
       .catch(console.log('error'))
@@ -114,10 +99,11 @@ data(){
   methods: {
   
     updateSalary(){
-        let id = this.$route.params.id;
-      axios.post('/api/payroll/update/'+id, this.form)
+        let id1 = this.$route.params.id;
+        let id = this.$route.params.pay_id;
+      axios.post('/api/payroll/update/'+id1, this.form)
       .then(res => {
-          this.$router.push({name: 'payroll'})
+          this.$router.push({name: 'view-salary',params: { id }})
           Notification.success();
         })
         .catch(error => this.errors = error.response.data.errors)

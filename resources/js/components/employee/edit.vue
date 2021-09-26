@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+        <router-link to="/employee" class="btn btn-primary">Employee</router-link>
 
     </div>
 
@@ -21,11 +21,13 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">Name</label>
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Name" v-model="form.name">
                                 <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                             </div>
 
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">Email</label>
                                 <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email" v-model="form.email">
                                 <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                             </div>
@@ -35,11 +37,13 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">Address</label>
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Address" v-model="form.address">
                                 <small class="text-danger" v-if="errors.address">{{ errors.address[0] }}</small>
                             </div>
 
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">Salary</label>
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Salary" v-model="form.salary">
                                 <small class="text-danger" v-if="errors.salary">{{ errors.salary[0] }}</small>
                             </div>
@@ -49,11 +53,13 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">Joining Date</label>
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter joining date" v-model="form.joining_date">
                                 <small class="text-danger" v-if="errors.joining_date">{{ errors.joining_date[0] }}</small>
                             </div>
 
                             <div class="col-md-6">
+                                <label for="exampleFormControlSelect1">NID</label>
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter NID" v-model="form.nid">
                                 <small class="text-danger" v-if="errors.nid">{{ errors.nid[0] }}</small>
                             </div>

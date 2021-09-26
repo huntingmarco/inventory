@@ -25,8 +25,12 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "laravel-vue-pagination": "^2.3.1",
         "noty": "^3.2.0-beta-deprecated",
         "sweetalert2": "^11.0.18",
-        "vue-router": "^3.5.1"
+        "vue-resource": "^1.5.3",
+        "vue-router": "^3.5.1",
+        "vue-search-select": "^2.9.4",
+        "vue-simple-search-dropdown": "^1.0.1"
     }
 }

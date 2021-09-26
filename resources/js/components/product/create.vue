@@ -26,7 +26,22 @@
 
         <div class="form-group">
 
+        
+
           <div class="form-row">
+
+            <!-- <div class="col-md-4">
+                  <Dropdown
+                      :options="suppliers"
+                      v-on:selected="validateSelection"
+                      v-on:filter="getDropdownValues"
+                      :disabled="false"
+                      name="companyname"
+                      :maxItem="10"
+                      placeholder="Please select an option">
+                  </Dropdown>
+            </div> --> 
+
             <div class="col-md-6">
               <label for="exampleFormControlSelect1">Product Name</label>
          <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">
@@ -49,10 +64,9 @@
           <div class="form-row">
             <div class="col-md-6">
       <label for="exampleFormControlSelect1">Product Category</label>
-  <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
-     <option :value="category.id" v-for="category in categories">{{ category.category_name }}</option>
-                       
-                      </select>   
+      <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
+          <option :value="category.id" v-for="category in categories">{{ category.category_name }}</option>
+      </select>   
         
             </div>
 
@@ -178,7 +192,9 @@
 
 
 <script type="text/javascript">
-  
+
+
+
   export default {
     created(){
       if (!User.loggedIn()) {
@@ -207,6 +223,14 @@
   },
 
   methods:{
+    // validateSelection(selection) {
+    //         this.selected = selection;
+    //         console.log(selection.companyname + " has been selected");
+    //     },
+      
+    //     getDropdownValues(keyword) {
+    //         console.log("You could refresh options by querying the API with " + keyword);
+    //     },
     onFileSelected(event){
      let file = event.target.files[0];
      if (file.size > 1048770) {

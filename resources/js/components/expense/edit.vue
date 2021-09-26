@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/expense" class="btn btn-primary">All Expense</router-link>
+        <router-link to="/expense" class="btn btn-primary">Expense</router-link>
 
     </div>
 
@@ -71,7 +71,9 @@ data(){
   return {
     form:{
       details: '',
-      amount: ''
+      amount: '',
+      group_id: null,
+      item_id: null
       },
       errors: {},  
     }

@@ -4,7 +4,7 @@ class Notification{
             type: 'success',
             layout: 'topRight',
             text: 'Successfully Done!',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
     
@@ -14,7 +14,7 @@ class Notification{
             type: 'alert',
             layout: 'topRight',
             text: 'Are you sure?',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
 
@@ -23,7 +23,7 @@ class Notification{
             type: 'alert',
             layout: 'topRight',
             text: 'Something went wrong!',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
 
@@ -32,7 +32,7 @@ class Notification{
             type: 'warning',
             layout: 'topRight',
             text: 'Warning: wrong!',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
 
@@ -41,7 +41,7 @@ class Notification{
             type: 'error',
             layout: 'topRight',
             text: 'Upload Image less than 1mb',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
 
@@ -59,7 +59,7 @@ class Notification{
             type: 'success',
             layout: 'topRight',
             text: 'Successfully Deleted!',
-            timeout: 1000,
+            timeout: 500,
         }).show();
     }
 

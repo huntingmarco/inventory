@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/sales" class="btn btn-primary">Go Back</router-link>
+        <router-link to="/sales" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -138,13 +138,14 @@ data(){
 
   created(){
       let id = this.$route.params.id;
+
       axios.get('/api/sales/summary/'+id)
       .then(({data})=>(this.sales = data))
-      .catch(console.log('error'))
+      .catch()
 
       axios.get('/api/sales/saledetails/'+id)
       .then(({data})=>(this.details = data))
-      .catch(console.log('error'))
+      .catch()
 
   },
 

@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/add-payroll" class="btn btn-primary">Go Back Add to Payroll</router-link>
+        <router-link to="/add-payroll" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -18,44 +18,36 @@
                   </div>
                   <form class="user" @submit.prevent="paySalary">
                   
+
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Name" v-model="form.name">
+                                <input type="text" disabled class="form-control" id="exampleInputFirstName" placeholder="Enter Your Name" v-model="form.name">
                                 <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                             </div>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email" v-model="form.email">
-                                <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
+                                <input type="email" disabled class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email" v-model="form.email">
+                                <small class="text-danger" v-if="errors.name">{{ errors.email[0] }}</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="exampleFormControlSelect1">Months</label>
-                                <select class="form-control" id="exampleFormControlSelect1" v-model="form.salary_month">
-                                    <option value="January"> January </option>
-                                    <option value="February"> February </option>
-                                    <option value="March"> March </option>
-                                    <option value="April"> April </option>
-                                    <option value="May"> May </option>
-                                    <option value="Jun"> Jun </option>
-                                    <option value="July"> July </option>
-                                    <option value="August"> August </option>
-                                    <option value="September"> September </option>
-                                    <option value="October"> October </option>
-                                    <option value="November"> November </option>
-                                    <option value="December"> December </option>
-                                </select>   
-                                <small class="text-danger" v-if="errors.salary_month">{{ errors.salary_month[0] }}</small>
+                            <div class="col-md-3">
+                                <label for="exampleFormControlSelect1">Pay ID</label>
+                                <select class="form-control" id="exampleFormControlSelect1" v-model="form.pay_id">
+                                    <option :value="pays.id" v-for="pay in pays">{{ pay.id }}</option>
+                                </select>  
+                                <small class="text-danger" v-if="errors.salary_month">{{ errors.pay_id[0] }}</small>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="exampleFormControlSelect1">Salary</label>
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Salary" v-model="form.salary">
+                           
+
+                            <div class="col-md-46">
+                                <label for="exampleFormControlSelect1">Pay</label>
+                                <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter pay" v-model="form.salary">
                                 <small class="text-danger" v-if="errors.salary">{{ errors.salary[0] }}</small>
                             </div>
                         </div>
@@ -96,9 +88,11 @@ data(){
     form:{
       name: '',
       email: '',
-      salary_month: '',
-      salary: ''
+      pay_id: '',
+      salary: '',
+      user:''
       },
+      pays:{},
       errors: {}  
     }
   },
@@ -113,6 +107,7 @@ data(){
   
     paySalary(){
         let id = this.$route.params.id;
+        this.form.user = User.name(); 
       axios.post('/api/payroll/paid/'+id, this.form)
       .then(res => {
           this.$router.push({name: 'payroll'})
@@ -120,7 +115,12 @@ data(){
         })
         .catch(error => this.errors = error.response.data.errors)
     },
-  }
+  },
+  created(){
+    axios.get('/api/payroll/')
+    .then(({data}) => (this.pays = data))
+
+  } 
   
 
 

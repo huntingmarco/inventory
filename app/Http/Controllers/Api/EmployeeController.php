@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use Image;
 use DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class EmployeeController extends Controller
 {
@@ -52,7 +53,9 @@ class EmployeeController extends Controller
             $image_url = $upload_path.$name;
             $img->save($image_url);
 
+            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => $prefix]);
             $employee = new Employee;
+            $employee->id = $id;
             $employee->name = $request->name;
             $employee->email = $request->email;
             $employee->phone = $request->phone;
@@ -63,7 +66,9 @@ class EmployeeController extends Controller
             $employee->photo = $image_url;
             $employee->save(); 
         }else{
+            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => $prefix]);
             $employee = new Employee;
+            $employee->id = $id;
              $employee->name = $request->name;
              $employee->email = $request->email;
              $employee->phone = $request->phone;

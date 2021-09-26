@@ -1,10 +1,10 @@
 <template>
     <div>
 
-    <div class="row">
+    <!-- <div class="row">
         <router-link to="/add-payroll" class="btn btn-primary">Payroll</router-link>
 
-    </div>
+    </div> -->
     <br>
         <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Here">
     </br>
@@ -20,18 +20,24 @@
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
-                        <th>Month Name</th>
-                        <th>Details</th>
+                        <th>Pay ID</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Status</th>
+                        <th>Transact Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="payroll in filtersearch" :key="payroll.id">
-                        <td>{{ payroll.salary_month }}</td>
-            <td>
-                <router-link :to="{name: 'view-salary', params:{id:payroll.salary_month}}" class="btn btn-sm btn-primary">View Payroll</router-link>
-
-               
-            </td>
+                        <td>{{ payroll.id }}</td>
+                        <td>{{ payroll.payfrom }}</td>
+                        <td>{{ payroll.payto }}</td>
+                        <td v-if="payroll.status == 'CREATED'"><span class="badge badge-primary">Created</span></td>
+                        <td v-else=" "><span class="badge badge-success">Processed</span></td>
+                        <td>{{ payroll.transact_date }}</td>
+                        <td>
+                            <router-link :to="{name: 'view-salary', params:{id:payroll.id}}" class="btn btn-sm btn-primary">View Payroll</router-link>
+                        </td>
                       </tr>
                       
                     </tbody>
@@ -65,7 +71,7 @@ export default {
     computed:{
         filtersearch(){
             return this.payroll.filter(payroll =>{
-                return payroll.salary_month.match(this.searchItem)
+                return payroll.id.match(this.searchItem)
             })
         }
     },

@@ -88,7 +88,7 @@
 
               </div>
             </div>
-            <!-- Pie Chart -->
+            <!-- Tabbed - Items for sale -->
             <div class="col-xl-7 col-lg-7">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -118,6 +118,7 @@
                   </li>
                 </ul>
                 
+                <!-- begin tab home -->
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   
@@ -162,7 +163,7 @@
                           </div>
 
                         </div>
-                        </div>
+                    </div>
                  
                 </div>
                 <!-- end Category Tab -->
@@ -202,6 +203,7 @@ export default {
         this.allCustomer();
         this.cartProduct();
         this.vat();
+        this.getUser();
         Reload.$on('AfterAdd',()=>{
           this.cartProduct();
         });
@@ -220,7 +222,8 @@ export default {
             customers: '',
             errors:'',
             carts:[],
-            vats:''
+            vats:'',
+            user:''
         }
     },
     computed:{
@@ -231,7 +234,7 @@ export default {
         },
         getfiltersearch(){
             return this.getproducts.filter(getproduct =>{
-                return getproduct.product_name.match(this.searchItem)
+                return getproduct.product_name.match(this.getsearchItem)
             })
         },
         total_quantity(){
@@ -254,20 +257,26 @@ export default {
     methods: {
         // Cart Method
         AddToCart(id){
-            axios.get('/api/addtocart/'+id)
-            .then(() => {
-              Reload.$emit('AfterAdd');
-              Notification.cart_success()
-            })
-            .catch()
+          
+          var data = { user:this.user};
+          
+          axios.post('/api/addtocart/'+id, data)
+          .then(() => {
+            Reload.$emit('AfterAdd');
+            Notification.cart_success()
+          })
+          .catch()
         },
         cartProduct(){
-            axios.get('/api/cart/product/')
+          this.user = User.name(); 
+          
+            axios.get('/api/cart/product/'+this.user)
             .then(({data}) => (this.carts = data))
             .catch()
         },
         removeItem(id){
-            axios.get('/api/remove/cart/'+id)
+          var data = { user:this.user};
+            axios.post('/api/remove/cart/'+id,data)
             .then(() => {
               Reload.$emit('AfterAdd');
               Notification.cart_delete()
@@ -275,7 +284,8 @@ export default {
             .catch()
         },
         increment(id){
-            axios.get('/api/increment/'+id)
+          var data = { user:this.user};
+            axios.post('/api/increment/'+id,data)
             .then(() => {
               Reload.$emit('AfterAdd');
               Notification.success()
@@ -283,7 +293,8 @@ export default {
             .catch()
         },
         decrement(id){
-            axios.get('/api/decrement/'+id)
+          var data = { user:this.user};
+            axios.post('/api/decrement/'+id,data)
             .then(() => {
               Reload.$emit('AfterAdd');
               Notification.success()
@@ -296,10 +307,13 @@ export default {
             .catch()
         },
         saledone(){
+            //getting the get login user
+          
+            this.user = User.name(); 
             let total = (this.subtotal * this.vats.vat/100) + this.subtotal;
             var data = { total_quantity:this.total_quantity, subtotal:this.subtotal, 
             customer_id:this.customer_id, payby:this.payby, pay:this.pay, due:this.due,
-            vat:this.vats.vat,total:total}
+            vat:this.vats.vat,total:total, user:this.user}
 
             axios.post('/api/saledone', data)
             .then(res => {
@@ -330,6 +344,11 @@ export default {
             axios.get('/api/retrieve/product/'+id)
             .then(({data}) => (this.getproducts = data))
             .catch()
+        },
+
+        getUser(){
+            //getting the get login user
+            this.user = User.name(); 
         }
 
     }

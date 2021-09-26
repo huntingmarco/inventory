@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
+        <router-link to="/supplier" class="btn btn-primary">Supplier</router-link>
 
     </div>
 

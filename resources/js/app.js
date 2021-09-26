@@ -2,10 +2,18 @@
 
 require('./bootstrap');
 
+
+
+// vue pagination
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 //window.Vue = require('vue').default;
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Dropdown from 'vue-simple-search-dropdown';
 Vue.use(VueRouter)
+// Vue.use(Dropdown)
+// Vue.component('search-dropdown', require('./components/SearchDropdown.vue').default);
 
 // Import Router
 import {routes} from './routes';

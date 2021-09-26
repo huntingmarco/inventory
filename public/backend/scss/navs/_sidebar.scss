@@ -54,25 +54,25 @@
           font-size: 0.65rem;
           color: $gray-500;
         }
-        .collapse-item {
-          padding: 0.5rem 1rem;
-          margin: 0 0.5rem;
-          display: block;
-          color: $gray-900;
-          text-decoration: none;
-          border-radius: $border-radius;
-          white-space: nowrap;
-          &:hover {
-            background-color: $gray-200;
-          }
-          &:active {
-            background-color: $gray-300;
-          }
-          &.active {
-            color: $primary;
-            font-weight: 700;
-          }
-        }
+        // .collapse-item {
+        //   padding: 0.5rem 1rem;
+        //   margin: 0 0.5rem;
+        //   display: block;
+        //   color: $gray-900;
+        //   text-decoration: none;
+        //   border-radius: $border-radius;
+        //   white-space: nowrap;
+        //   &:hover {
+        //      background-color: $gray-200;
+        //   }
+        //   &:active {
+        //      background-color: $gray-300;
+        //   }
+        //   &.active {
+        //     color: $primary;
+        //     font-weight: 700;
+        //   }
+        // }
       }
     }
   }
@@ -114,6 +114,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05rem;
     z-index: 1;
+    
 
     .sidebar-brand-icon i {
       font-size: 2rem;

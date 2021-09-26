@@ -26,43 +26,55 @@ class CartController extends Controller
             $data['pro_quantity'] = 1;
             $data['product_price'] = $product->selling_price;
             $data['sub_total'] = $product->selling_price;
-
+            $data['user'] = $request->user;
             DB::table('pos')->insert($data);
         }
     }
 
-    public function CartProduct(){
-        $cart = DB::table('pos')->get();
+    public function CartProduct($user){
+        $cart = DB::table('pos')->where('user',$user)->get();
            return response()->json($cart);
     }
 
-    public function removeCart($id){
-        DB::table('pos')->where('id',$id)->delete();
+    public function removeCart(Request $request,$id){
+        DB::table('pos')->where('id',$id)->where('user',$request->user)->delete();
         return response('Done');
    
     }
 
-    public function increment($id){
-        $quantity = DB::table('pos')->where('id',$id)->increment('pro_quantity');
+    public function increment(Request $request,$id){
+        $quantity = DB::table('pos')->where('id',$id)->where('user',$request->user)->increment('pro_quantity');
   
-        $product = DB::table('pos')->where('id',$id)->first();
+        $product = DB::table('pos')->where('id',$id)->where('user',$request->user)->first();
         $subtotal = $product->pro_quantity * $product->product_price;
-        DB::table('pos')->where('id',$id)->update(['sub_total'=> $subtotal]);
+        DB::table('pos')->where('id',$id)->where('user',$request->user)->update(['sub_total'=> $subtotal]);
         return response('Done');
     }
   
-    public function decrement($id){
-        $quantity = DB::table('pos')->where('id',$id)->decrement('pro_quantity');
+    public function decrement(Request $request,$id){
+        $quantity = DB::table('pos')->where('id',$id)->where('user',$request->user)->decrement('pro_quantity');
   
-        $product = DB::table('pos')->where('id',$id)->first();
+        $product = DB::table('pos')->where('id',$id)->where('user',$request->user)->first();
         $subtotal = $product->pro_quantity * $product->product_price;
-        DB::table('pos')->where('id',$id)->update(['sub_total'=> $subtotal]);
+        DB::table('pos')->where('id',$id)->where('user',$request->user)->update(['sub_total'=> $subtotal]);
         return response('Done');
     }
 
     public function Vats(){
-        $vat = DB::table('extra')->first();
+        $vat = DB::table('settings')->first();
         return response()->json($vat);
     }
+
+    public function Settings(){
+        $data = DB::table('settings')->first();
+        return response()->json($data);
+    }
+
+    public function Sysdate(){
+        $data = DB::table('settings')->first();
+        return response()->json($data->sysdate);
+    }
+
+   
 
 }

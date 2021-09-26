@@ -57,7 +57,9 @@ class ProductController extends Controller
                 $image_url = $upload_path.$name;
                 $img->save($image_url);
     
+                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => $prefix]);
                 $product = new Product;
+                $product->id = $id;
                 $product->category_id = $request->category_id;
                 $product->product_name = $request->product_name;
                 $product->product_code = $request->product_code;
@@ -70,7 +72,9 @@ class ProductController extends Controller
                 $product->image = $image_url;
                 $product->save(); 
             }else{
+                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => $prefix]);
                 $product = new Product;
+                $product->id = $id;
                 $product->category_id = $request->category_id;
                 $product->product_name = $request->product_name;
                 $product->product_code = $request->product_code;
@@ -166,9 +170,30 @@ class ProductController extends Controller
 
     public function StockUpdate(Request $request,$id){
 
+        $product = DB::table('products')->where('id',$id)->first();
+
+        //Update quantity
+        // $data = array();
+        // $data['product_quantity'] = $request->product_quantity;
+        // DB::table('products')->where('id',$id)->update($data);
+        if ($request->action == 'ADD') {
+            $productquantity = $product->product_quantity + $request->quantity;
+            DB::table('products')->where('id',$id)->update(['product_quantity'=> $productquantity]);
+        } else{
+            $productquantity = $product->product_quantity - $request->quantity;
+            DB::table('products')->where('id',$id)->update(['product_quantity'=> $productquantity]);
+        }
+
+        // Insert action
         $data = array();
-        $data['product_quantity'] = $request->product_quantity;
-        DB::table('products')->where('id',$id)->update($data);
+        $data['product_id'] = $id;
+        $data['stock'] = $product->product_quantity;
+        $data['quantity'] = $request->quantity;
+        $data['remarks'] = $request->remarks;
+        $data['action'] = $request->action;
+        $data['date_updated'] = date('d/m/Y');
+
+        DB::table('product_update')->insert($data);
     
      }
 

@@ -1,12 +1,12 @@
 <template>
     <div>
 
-    <div class="row">
+    <!-- <div class="row">
         <router-link to="/store-employee" class="btn btn-primary">Add Employee</router-link>
 
-    </div>
+    </div> -->
     <br>
-        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Here">
+        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Employees">
     </br>
 
     <div class="row">

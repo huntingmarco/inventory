@@ -38,17 +38,26 @@
                         <td> ${{ sale.due }}   </td>
                         <td> {{ sale.payby }} </td>
                        
-            <td>
+                        <td>
    <router-link :to="{name: 'view-sales', params:{id:sale.id}}" class="btn btn-sm btn-primary">View</router-link>
 
  
-            </td>
+                        </td>
+                      </tr>
+                      <tr class="bg-dark text-white">
+                          <td>Totals:</td>
+                          <td>${{totalAmt}}</td>
+                          <td>${{totalPay}}</td>
+                          <td>${{totalDue}}</td>
+                          <td></td>
+                          <td></td>
                       </tr>
                     
                     </tbody>
                   </table>
                 </div>
-                <div class="card-footer"></div>
+                <div class="card-footer">
+                </div>
               </div>
             </div>
           </div>
@@ -82,6 +91,24 @@
       return this.sales.filter(sale => {
          return sale.name.match(this.searchTerm)
       }) 
+      },
+      totalAmt(){
+          let total = 0;  
+          for(let p of this.sales) 
+          {    total += parseFloat(p.total);  }  
+          return total;
+      },
+      totalPay(){
+          let total = 0;  
+          for(let p of this.sales) 
+          {    total += parseFloat(p.pay);  }  
+          return total;
+      },
+      totalDue(){
+          let total = 0;  
+          for(let p of this.sales) 
+          {    total += parseFloat(p.due);  }  
+          return total;
       }
     },
  

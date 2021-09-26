@@ -3,6 +3,7 @@ let login = require('./components/auth/login.vue').default;
 let register = require('./components/auth/register.vue').default;
 let forget = require('./components/auth/forget.vue').default;
 let logout = require('./components/auth/logout.vue').default;
+let validation = require('./components/auth/validation.vue').default;
 // end Authentication
 
 let home = require('./components/home.vue').default;
@@ -32,6 +33,11 @@ let storeexpense = require('./components/expense/create.vue').default;
 let expense = require('./components/expense/index.vue').default;
 let editexpense = require('./components/expense/edit.vue').default;
 
+// Journal Component 
+let storejournal = require('./components/journal/create.vue').default;
+let journal = require('./components/journal/index.vue').default;
+let editjournal = require('./components/journal/edit.vue').default;
+
   // Payroll Component 
   let addpayroll = require('./components/payroll/add_payroll.vue').default;
   let paysalary = require('./components/payroll/create.vue').default;
@@ -56,6 +62,11 @@ let editexpense = require('./components/expense/edit.vue').default;
   let viewsales = require('./components/sales/viewsales.vue').default;
   let searchsales = require('./components/sales/searchsales.vue').default;
 
+
+  // Pay component
+  let storepay = require('./components/pay/create.vue').default;
+  let pay = require('./components/pay/index.vue').default;
+  let editpay = require('./components/pay/edit.vue').default;
   
 export const routes = [
     { path: '/', component: login, name: '/' },
@@ -63,6 +74,7 @@ export const routes = [
     { path: '/forget', component: forget, name: 'forget' },
     { path: '/logout', component: logout, name: 'logout' },
     { path: '/home', component: home, name: 'home' },
+    { path: '/validation', component: validation, name: 'validation' },
 
     // Employee Routes
     { path: '/store-employee', component: storeemployee, name: 'store-employee' },
@@ -89,6 +101,11 @@ export const routes = [
     { path: '/expense', component: expense, name:'expense'},
     { path: '/edit-expense/:id', component: editexpense, name:'edit-expense'},
 
+    // Journal Routes
+    { path: '/store-journal', component: storejournal, name:'store-journal'},
+    { path: '/journal', component: journal, name:'journal'},
+    { path: '/edit-journal/:id', component: editjournal, name:'edit-journal'},
+
     // Salary Routes
    
     { path: '/add-payroll', component: addpayroll, name:'add-payroll'},
@@ -114,4 +131,11 @@ export const routes = [
     { path: '/sales', component: sales, name: 'sales' },
     { path: '/view-sales/:id', component: viewsales, name: 'view-sales' },
     { path: '/searchsales', component: searchsales, name: 'searchsales' },
+
+    // Pay Routes
+    { path: '/store-pay', component: storepay, name: 'store-pay' },
+    { path: '/pay', component: pay, name: 'pay' },
+    { path: '/edit-pay/:id', component: editpay, name: 'edit-pay' },
+
+
   ]

@@ -74,6 +74,7 @@ export default {
       login(){
         axios.post('/api/auth/login',this.form)
         .then(res => {
+          
           User.responseAfterLogin(res)
 
           Toast.fire({
@@ -83,14 +84,18 @@ export default {
 
           this.$router.push({ name: 'home' })
         })
-
-        .catch(error => this.errors = error.response.data.errors)
-        .catch(
-          Toast.fire({
-            icon: 'success',
-            title: 'Invalid Email or Password.'
-          })
-        )
+        .catch((error) => {  Toast.fire({
+            icon: 'warning',
+            title: 'Invalid Email or Password or Invalidated.'
+          }) });
+        // .catch(error => this.errors = error.response.data.errors)
+        // .catch(
+          
+        //   Toast.fire({
+        //     icon: 'warning',
+        //     title: JSON.stringify(this.errors)
+        //   })
+        // )
 
 
       }

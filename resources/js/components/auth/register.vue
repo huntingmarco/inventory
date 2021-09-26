@@ -75,18 +75,20 @@ export default {
       signup(){
         axios.post('/api/auth/signup',this.form)
         .then(res => {
-          User.responseAfterLogin(res)
+         
+          //User.responseAfterLogin(res)
 
           Toast.fire({
             icon: 'success',
-            title: 'Signed in successfully'
+            title: 'Done. Need to validate to login.'
           })
 
           this.$router.push({ name: 'home' })
+          //this.$router.push({ name: 'validation' })
         })
 
         .catch(error => this.errors = error.response.data.errors)
-        
+       
       }
     }
   

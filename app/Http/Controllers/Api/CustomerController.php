@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Customer;
 use Image;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
 class CustomerController extends Controller
@@ -49,7 +50,10 @@ class CustomerController extends Controller
             $image_url = $upload_path.$name;
             $img->save($image_url);
    
+            //$id = IdGenerator::generate(['table' => 'customers', 'length' => 6, 'prefix' => $prefix]);
+            $id = IdGenerator::generate(['table' => 'customers', 'length' => 6, 'prefix' => 'A']);
             $customer = new Customer;
+            $customer->id = $id;
             $customer->name = $request->name;
             $customer->email = $request->email;
             $customer->phone = $request->phone;
@@ -57,7 +61,9 @@ class CustomerController extends Controller
             $customer->photo = $image_url;
             $customer->save(); 
         }else{
+            $id = IdGenerator::generate(['table' => 'customers', 'length' => 6, 'prefix' => $prefix]);
             $customer = new Customer;
+            $customer->id = $id;
             $customer->name = $request->name;
             $customer->email = $request->email;
             $customer->phone = $request->phone;

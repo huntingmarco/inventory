@@ -39,9 +39,23 @@ class AuthController extends Controller
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or Password Invalid.'], 401);
+        }else{
+            // Checked if validated
+            $user = DB::table('users')->where('email',$request->email)->first();
+            if ($user->validated==0){
+                return response()->json(['error' => 'User not validated.'], 401);
+            }else{
+                return $this->respondWithToken($token);
+            }
+            
+            // end Checked if validated
+
         }
 
-        return $this->respondWithToken($token);
+ 
+
+
+        
     }
 
     /**
@@ -87,9 +101,13 @@ class AuthController extends Controller
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
+        $data['validated'] = 0;
+        $data['terminal_id'] = '';
         DB::table('users')->insert($data);
 
-        return $this->login($request);
+        //return $this->login($request);
+        //return response()->json(['message' => 'Register Successfully.']);
+        return response('Done.');
 
     }
 

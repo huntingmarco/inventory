@@ -26,9 +26,23 @@
                                 <small class="text-danger" v-if="errors.details">{{ errors.details[0] }}</small>
                             </div>
 
+                            <div class="col-md-12">
+                              <label for="exampleFormControlSelect1">Account Group</label>
+                              <select @change="changeGroup($event)" class="form-control" id="exampleFormControlSelect1" v-model="form.group_id">
+                                <option :value="acctgroup.group_id" v-for="acctgroup in acctgroups">{{ acctgroup.group_name }}</option>
+                              </select>   
+                            </div>
+
+                            <div class="col-md-12">
+                              <label for="exampleFormControlSelect1">Account Item</label>
+                              <select class="form-control" id="exampleFormControlSelect1" v-model="form.item_id">
+                                <option :value="acctitem.item_id" v-for="acctitem in acctitems">{{ acctitem.item_name }}</option>
+                              </select>   
+                            </div>
+
                             <div class="col-md-12"><br>
                                 <label for="exampleFormControlTextarea1"><b>Expense Amount</b></label>
-                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Amount" v-model="form.amount">
+                                <input type="number" step="0.01" class="form-control" id="exampleInputFirstName" placeholder="Enter Amount" v-model="form.amount">
                                 <small class="text-danger" v-if="errors.amount">{{ errors.amount[0] }}</small>
                             </div>
 
@@ -70,15 +84,22 @@ data(){
   return {
     form:{
       details: '',
-      amount: ''
+      amount: '',  
+      user:'',
+      group_id: null,
+      item_id: null,
       },
-      errors: {},  
+      errors: {},
+      acctgroups:{},
+      acctitems:{}
     }
   },
 
   methods: {
    
     expenseInsert(){
+
+      this.form.user = User.name(); 
       axios.post('/api/expense', this.form)
       .then(res => {
           this.$router.push({name: 'expense'})
@@ -86,7 +107,27 @@ data(){
         })
         .catch(error => this.errors = error.response.data.errors)
     },
-  }
+
+    changeGroup (event) {
+      this.group_id = event.target.value
+      axios.get('/api/acctitem/group/'+this.group_id)
+      .then(response => {this.acctitems = response.data;console.log(response);})
+      .catch(error => this.errors = error.response.data.errors)
+      
+    }
+
+  },
+
+  created(){
+    axios.get('/api/acctgroupexp')
+    .then(response => {this.acctgroups = response.data;console.log(response);})
+    
+
+    // axios.get('api/acctitem/group/'+this.group_id)
+    // .then(({data}) => (this.acctitems = data))
+  
+
+  } 
   
 }
  
