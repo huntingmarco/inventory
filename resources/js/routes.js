@@ -38,6 +38,11 @@ let storejournal = require('./components/journal/create.vue').default;
 let journal = require('./components/journal/index.vue').default;
 let editjournal = require('./components/journal/edit.vue').default;
 
+// Accounting Component 
+let income = require('./components/accounting/income.vue').default;
+let balance = require('./components/accounting/balance.vue').default;
+
+
   // Payroll Component 
   let addpayroll = require('./components/payroll/add_payroll.vue').default;
   let paysalary = require('./components/payroll/create.vue').default;
@@ -105,6 +110,10 @@ export const routes = [
     { path: '/store-journal', component: storejournal, name:'store-journal'},
     { path: '/journal', component: journal, name:'journal'},
     { path: '/edit-journal/:id', component: editjournal, name:'edit-journal'},
+
+     // Accounting Routes
+     { path: '/income', component: income, name:'income'},
+     { path: '/balance', component: income, name:'balance'},
 
     // Salary Routes
    

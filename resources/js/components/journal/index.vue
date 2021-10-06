@@ -2,7 +2,7 @@
     <div>
 
         <div class="row">
-            <router-link to="/store-expense" class="btn btn-primary">Add Journal</router-link>
+            <router-link to="/store-journal" class="btn btn-primary">Add Journal</router-link>
 
         </div>
       

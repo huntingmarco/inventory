@@ -41,7 +41,7 @@
                       placeholder="Please select an option">
                   </Dropdown>
             </div> --> 
-
+""
             <div class="col-md-6">
               <label for="exampleFormControlSelect1">Product Name</label>
          <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">

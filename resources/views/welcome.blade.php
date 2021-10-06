@@ -137,10 +137,10 @@
         </a>
         <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Example Pages</h6>
+            <!-- <h6 class="collapse-header">Example Pages</h6> -->
             <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">Trial Balance</a>
             <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">Balance Sheet</a>
-            <a class="collapse-item text-white" style="margin-left:40px;" href="404.html">Income Statement</a>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/income">Income Statement</router-link>
           </div>
         </div>
       </li>
@@ -152,7 +152,8 @@
         </a>
         <div id="collapsePage2" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Example Pages</h6>
+            <!-- <h6 class="collapse-header">Example Pages</h6> -->
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/journal">Journal Entry</router-link>
             <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">General Ledger</a>
             <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">GL Account</a>
           </div>

@@ -11,6 +11,8 @@ class Acctitem extends Model
 
     protected $fillable = [
         'item_name',
-        'group_id'
+        'group_id',
+        'debit',
+        'credit'
     ];
 }

@@ -139,4 +139,72 @@ class JournalController extends Controller
     {
         //
     }
+
+    public function GenerateIncome(Request $request)
+    {
+        $settings = DB::table('settings')->first();
+        $sysdate = $settings->sysdate;
+        
+
+        $rdate = DateTime::createFromFormat('Y-m-d', $request->date)->format('ymd');
+
+        //refresh temp table
+       $dropTempTables = DB::statement('DROP TABLE IF EXISTS income' . $rdate . $request->user );
+
+       //Create temporary table
+       $createIncomeTable = DB::unprepared('create table income' . $rdate . $request->user . 
+       ' (id bigint not null auto_increment,' .
+       'item_id varchar(20) not null default 0,' .
+       'item_name varchar(50) not null,' . 
+       'group_id char(7) not null default 0,' .
+       'group_name varchar(50) not null,' . 
+       'grouptype char(1) not null default 0,' .
+       'debit double not null default 0,' . 
+       'credit double not null default 0, ' .
+       'bal double not null default 0, ' .
+       'primary key(id))');
+
+       //Get transaction and update amount to accoount item
+       DB::statement('UPDATE acctitems as items, ( ' .
+        'Select a.item_id,Sum(if(c.entry="DR",c.amount,0)) As tdebit, Sum(if(c.entry="CR",c.amount,0)) As tcredit ' .
+        ' From acctitems as a Left Join trn as c On Trim(c.item_id) = Trim(a.item_id) ' . 
+        ' Inner Join acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
+        ' Where (UCase(Trim(b.grouptype)) = "D" Or UCase(Trim(b.grouptype)) = "E") ' .
+        ' and c.trndate <= '  . $rdate .  
+        ' Group By a.item_id ' .
+        ' Order By a.item_id) as trn ' .
+        ' SET items.debit = trn.tdebit, items.credit = trn.tcredit' .
+        ' WHERE items.item_id=trn.item_id');
+
+        //Select Income and Expense item then insert to temporary table
+        DB::statement('INSERT INTO income' . $rdate . $request->user . ' (item_id,item_name,group_id,group_name,grouptype,debit,credit) ' .
+        ' Select a.item_id, a.item_name, ' .
+        ' b.group_id, b.group_name, b.grouptype, a.debit As tdebit, ' .
+        ' a.credit As tcredit  ' .
+        ' From acctitems as a Inner Join ' .
+        ' acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
+        ' Where UCase(Trim(b.grouptype)) = "D" Or ' .
+        ' UCase(Trim(b.grouptype)) = "E" ' .
+        ' Group By a.item_id,b.group_id ' .
+        ' Order By b.grouptype, a.item_id');
+
+        //update income account
+        DB::update(
+            'update income' . $rdate . $request->user . ' set bal = credit-debit where grouptype = ?',
+            ['D']);
+
+        //update expense account
+        DB::update(
+            'update income' . $rdate . $request->user . ' set bal = debit-credit where grouptype = ?',
+            ['E']);
+
+        
+        $income = DB::table('income' . $rdate . $request->user)
+        ->select('income' . $rdate . $request->user . '.*')
+          ->get();
+        return response()->json($income);
+
+        
+        
+    }
 }
