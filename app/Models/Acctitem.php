@@ -13,6 +13,7 @@ class Acctitem extends Model
         'item_name',
         'group_id',
         'debit',
-        'credit'
+        'credit',
+        'bal'
     ];
 }

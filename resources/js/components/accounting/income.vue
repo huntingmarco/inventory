@@ -185,6 +185,14 @@ data(){
         .then(({data})=>{this.accounts = data;console.log(this.accounts)})
         .catch(error => this.errors = error.response.data.errors)
     },
+    getsystemdate(){
+            axios.get('/api/sysdate/')
+            .then(({data}) => {this.date = data; })
+            .catch()
+        }
+  },
+  created(){
+    this.getsystemdate();
   }
 }
 </script>

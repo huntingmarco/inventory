@@ -91,6 +91,7 @@ Route::Get('/today/stockout','App\Http\Controllers\Api\PosController@TodayStocko
 
 //Accounting
 Route::Post('/income','App\Http\Controllers\Api\JournalController@GenerateIncome');
+Route::Post('/balance','App\Http\Controllers\Api\JournalController@GenerateBalance');
 
 //Accounting Group
 Route::apiResource('/acctgroup','App\Http\Controllers\Api\AcctgroupController');

@@ -113,7 +113,7 @@ export const routes = [
 
      // Accounting Routes
      { path: '/income', component: income, name:'income'},
-     { path: '/balance', component: income, name:'balance'},
+     { path: '/balance', component: balance, name:'balance'},
 
     // Salary Routes
    

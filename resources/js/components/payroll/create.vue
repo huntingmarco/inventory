@@ -96,12 +96,6 @@ data(){
       errors: {}  
     }
   },
-  created(){
-      let id = this.$route.params.id;
-      axios.get('/api/employee/'+id)
-      .then(({data})=>this.form = data)
-      .catch(console.log('error'))
-  },
 
   methods: {
   
@@ -117,6 +111,12 @@ data(){
     },
   },
   created(){
+    let id = this.$route.params.id;
+      axios.get('/api/employee/'+id)
+      .then(({data})=>(this.form = data))
+      .catch(console.log('error'))
+
+
     axios.get('/api/payroll/')
     .then(({data}) => (this.pays = data))
 

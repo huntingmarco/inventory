@@ -111,6 +111,7 @@ data(){
   },
   created(){
       let id = this.$route.params.id;
+      alert(id);
       axios.get('/api/customer/'+id)
       .then(({data})=>this.form = data)
       .catch(console.log('error'))

@@ -139,7 +139,7 @@
           <div class="py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Example Pages</h6> -->
             <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">Trial Balance</a>
-            <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">Balance Sheet</a>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/balance">Balance Sheet</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/income">Income Statement</router-link>
           </div>
         </div>
@@ -155,16 +155,20 @@
             <!-- <h6 class="collapse-header">Example Pages</h6> -->
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/journal">Journal Entry</router-link>
             <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">General Ledger</a>
-            <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">GL Account</a>
+            <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">GL Accounts</a>
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts of Accounts</span>
-        </a>
+      
+
+      <hr class="sidebar-divider">
+
+      <li class="nav-item active">
+        <router-link class="nav-link" to="/closetrn">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Close Transaction</span></router-link>
       </li>
+
       <hr class="sidebar-divider">
       <div class="version" id="version-ruangadmin"></div>
     </ul>
