@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/pay" class="btn btn-primary">Back to Pay</router-link>
+        <router-link to="/pay" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -14,7 +14,7 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Pay Update</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Payroll Range Update</h1>
                   </div>
                   <form class="user" @submit.prevent="payUpdate" enctype="multipart/form-data">
                   
@@ -43,7 +43,7 @@
                     
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Update</button>
+                      <button type="submit" class="btn btn-primary btn-block col-md-6">Update</button>
                     </div>
                    
                   </form>

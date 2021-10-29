@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             $image_url = $upload_path.$name;
             $img->save($image_url);
 
-            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => $prefix]);
+            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => 'E']);
             $employee = new Employee;
             $employee->id = $id;
             $employee->name = $request->name;
@@ -66,7 +66,7 @@ class EmployeeController extends Controller
             $employee->photo = $image_url;
             $employee->save(); 
         }else{
-            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => $prefix]);
+            $id = IdGenerator::generate(['table' => 'employees', 'length' => 6, 'prefix' => 'E']);
             $employee = new Employee;
             $employee->id = $id;
              $employee->name = $request->name;

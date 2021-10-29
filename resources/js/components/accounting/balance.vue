@@ -55,7 +55,7 @@
                                 </tr>
                             </tbody>
                             <div class="card-footer">
-                                <tr class="bg-dark text-white">
+                                <tr class="bg-success text-white">
                                     <td>Total Assets:</td>
                                     <td>${{totalAssetsBal}}</td>
                                     <td></td>

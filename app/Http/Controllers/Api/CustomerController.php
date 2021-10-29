@@ -61,7 +61,7 @@ class CustomerController extends Controller
             $customer->photo = $image_url;
             $customer->save(); 
         }else{
-            $id = IdGenerator::generate(['table' => 'customers', 'length' => 6, 'prefix' => $prefix]);
+            $id = IdGenerator::generate(['table' => 'customers', 'length' => 6, 'prefix' => 'A']);
             $customer = new Customer;
             $customer->id = $id;
             $customer->name = $request->name;

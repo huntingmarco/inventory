@@ -5,7 +5,7 @@
   <div>
 
  <div class="row">
-  <router-link to="/product" class="btn btn-primary">All Product </router-link>
+  <router-link to="/product" class="btn btn-primary">Back</router-link>
    
  </div>
 
@@ -28,25 +28,12 @@
 
         
 
-          <div class="form-row">
-
-            <!-- <div class="col-md-4">
-                  <Dropdown
-                      :options="suppliers"
-                      v-on:selected="validateSelection"
-                      v-on:filter="getDropdownValues"
-                      :disabled="false"
-                      name="companyname"
-                      :maxItem="10"
-                      placeholder="Please select an option">
-                  </Dropdown>
-            </div> --> 
-""
+        <div class="form-row">
             <div class="col-md-6">
               <label for="exampleFormControlSelect1">Product Name</label>
-         <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">
-       <small class="text-danger" v-if="errors.product_name"> {{ errors.product_name[0] }} </small>
-            </div>
+              <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">
+              <small class="text-danger" v-if="errors.product_name"> {{ errors.product_name[0] }} </small>
+          </div>
 
 
      <div class="col-md-6">
@@ -72,16 +59,22 @@
 
 
      <div class="col-md-6">
-          <label for="exampleFormControlSelect1">Product Supplier</label>
- <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
-   
-    <option :value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>
-                        
-                      </select>    
-            </div>     
+            <label for="exampleFormControlSelect1">Product Supplier</label>
+            <!-- <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
+        
+              <option :value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>
+                            
+            </select>     -->
+            <model-list-select :list="suppliers"
+                  v-model="form.supplier_id"
+                  option-value="id"
+                  option-text="name"
+                  placeholder="select item">
+            </model-list-select>
+      </div>     
             
-          </div>
         </div>
+      </div>
 
        
 
@@ -166,7 +159,7 @@
 
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          <button type="submit" class="btn btn-primary btn-block col-md-6">Submit</button>
         </div>
         
       </form>
@@ -192,7 +185,8 @@
 
 
 <script type="text/javascript">
-
+import 'vue-search-select/dist/VueSearchSelect.css';
+import { ModelListSelect } from 'vue-search-select';
 
 
   export default {
@@ -218,19 +212,12 @@
       },
       errors:{},
       categories:{},
-      suppliers:{},
+      suppliers:[],
     }
   },
 
   methods:{
-    // validateSelection(selection) {
-    //         this.selected = selection;
-    //         console.log(selection.companyname + " has been selected");
-    //     },
-      
-    //     getDropdownValues(keyword) {
-    //         console.log("You could refresh options by querying the API with " + keyword);
-    //     },
+
     onFileSelected(event){
      let file = event.target.files[0];
      if (file.size > 1048770) {
@@ -262,11 +249,15 @@
     axios.get('/api/supplier/')
     .then(({data}) => (this.suppliers = data))
 
-  } 
+  } ,
+  components: {
+    ModelListSelect
+    }
+ }
+ 
 
-
-  }
    
+  
 </script>
 
 

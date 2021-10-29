@@ -29,7 +29,7 @@ class SaleController extends Controller
             ->join('customers','sales.customer_id','customers.id')
             ->where('sales.id',$id)
             ->select('customers.name','customers.phone','customers.address','sales.*')
-            ->get();
+            ->first();
             return response()->json($sale);
     }
  

@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/expense" class="btn btn-primary">All Expenses</router-link>
+        <router-link to="/expense" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -51,7 +51,7 @@
 
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Save</button>
+                      <button type="submit" class="btn btn-primary btn-block col-md-6">Save</button>
                     </div>
                    
                   </form>

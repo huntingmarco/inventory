@@ -60,9 +60,16 @@
 
                   <form @submit.prevent="saledone">
                     <label>Customer Name</label>
-                    <select class="form-control" v-model="customer_id">
+                    <!-- <select class="form-control" v-model="customer_id">
                       <option :value="customer.id" v-for="customer in customers">{{customer.name}}</option>
-                    </select>
+                    </select> -->
+
+                    <model-list-select :list="customers"
+                      v-model="customer_id"
+                      option-value="id"
+                      option-text="name"
+                      placeholder="select item">
+                    </model-list-select>
 
                     <label>Pay</label>
                     <input type="text" class="form-control" required="" v-model="pay">
@@ -189,6 +196,8 @@
 </template>
 
 <script type="text/javascript">
+import 'vue-search-select/dist/VueSearchSelect.css';
+import { ModelListSelect } from 'vue-search-select';
 
 export default {
 
@@ -219,7 +228,7 @@ export default {
             getproducts:[],
             searchItem: '',
             getsearchItem: '',
-            customers: '',
+            customers: [],
             errors:'',
             carts:[],
             vats:'',
@@ -351,6 +360,9 @@ export default {
             this.user = User.name(); 
         }
 
+    },
+  components: {
+    ModelListSelect
     }
    
   

@@ -61,7 +61,7 @@
                     
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                        <button type="submit" class="btn btn-primary btn-block col-md-4">Update</button>
                         </div>
                         
                     </form>

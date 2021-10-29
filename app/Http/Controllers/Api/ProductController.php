@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Image;
 use DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller
 {
@@ -57,7 +58,7 @@ class ProductController extends Controller
                 $image_url = $upload_path.$name;
                 $img->save($image_url);
     
-                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => $prefix]);
+                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => 'P']);
                 $product = new Product;
                 $product->id = $id;
                 $product->category_id = $request->category_id;
@@ -72,7 +73,7 @@ class ProductController extends Controller
                 $product->image = $image_url;
                 $product->save(); 
             }else{
-                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => $prefix]);
+                $id = IdGenerator::generate(['table' => 'products', 'length' => 6, 'prefix' => 'P']);
                 $product = new Product;
                 $product->id = $id;
                 $product->category_id = $request->category_id;

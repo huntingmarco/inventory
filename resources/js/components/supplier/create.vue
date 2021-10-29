@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
+        <router-link to="/supplier" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -76,7 +76,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Save</button>
+                      <button type="submit" class="btn btn-primary btn-block col-md-6">Save</button>
                     </div>
                    
                   </form>

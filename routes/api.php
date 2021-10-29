@@ -19,6 +19,7 @@ Route::apiResource('/employee','App\Http\Controllers\Api\EmployeeController');
 Route::apiResource('/supplier','App\Http\Controllers\Api\SupplierController');
 Route::apiResource('/category','App\Http\Controllers\Api\CategoryController');
 Route::apiResource('/product','App\Http\Controllers\Api\ProductController');
+Route::apiResource('/reservation','App\Http\Controllers\Api\ReservationController');
 
 Route::apiResource('/expense','App\Http\Controllers\Api\ExpenseController');
 Route::Post('/myexpense','App\Http\Controllers\Api\ExpenseController@myExpenses');
@@ -92,6 +93,7 @@ Route::Get('/today/stockout','App\Http\Controllers\Api\PosController@TodayStocko
 //Accounting
 Route::Post('/income','App\Http\Controllers\Api\JournalController@GenerateIncome');
 Route::Post('/balance','App\Http\Controllers\Api\JournalController@GenerateBalance');
+Route::Post('/trialbalance','App\Http\Controllers\Api\JournalController@GenerateTrialBalance');
 
 //Accounting Group
 Route::apiResource('/acctgroup','App\Http\Controllers\Api\AcctgroupController');
@@ -101,3 +103,10 @@ Route::Get('/acctgroupexp','App\Http\Controllers\Api\AcctgroupController@AcctGro
 Route::apiResource('/acctitem','App\Http\Controllers\Api\AcctitemController');
 Route::Get('/acctitem/group/{id}','App\Http\Controllers\Api\AcctitemController@AcctItemGroup');
 
+
+//Room Categories
+Route::apiResource('/roomcategory','App\Http\Controllers\Api\RoomCategoryController');
+
+//Rooms
+Route::apiResource('/room','App\Http\Controllers\Api\RoomController');
+Route::Get('/room/categ/{id}','App\Http\Controllers\Api\RoomController@RoomCateg');

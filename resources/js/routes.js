@@ -38,10 +38,15 @@ let storejournal = require('./components/journal/create.vue').default;
 let journal = require('./components/journal/index.vue').default;
 let editjournal = require('./components/journal/edit.vue').default;
 
+// Account Group component
+let storeacctgroup = require('./components/acctgroup/createAcctgroup.vue').default;
+let acctgroup = require('./components/acctgroup/indexAcctgroup.vue').default;
+let editacctgroup = require('./components/acctgroup/editAcctgroup.vue').default;
+
 // Accounting Component 
 let income = require('./components/accounting/income.vue').default;
 let balance = require('./components/accounting/balance.vue').default;
-
+let trialbalance = require('./components/accounting/trialbalance.vue').default;
 
   // Payroll Component 
   let addpayroll = require('./components/payroll/add_payroll.vue').default;
@@ -72,6 +77,11 @@ let balance = require('./components/accounting/balance.vue').default;
   let storepay = require('./components/pay/create.vue').default;
   let pay = require('./components/pay/index.vue').default;
   let editpay = require('./components/pay/edit.vue').default;
+
+  // Reservation Component 
+let storereservation = require('./components/reservation/create.vue').default;
+let reservation = require('./components/reservation/index.vue').default;
+let editreservation = require('./components/reservation/edit.vue').default;
   
 export const routes = [
     { path: '/', component: login, name: '/' },
@@ -111,9 +121,15 @@ export const routes = [
     { path: '/journal', component: journal, name:'journal'},
     { path: '/edit-journal/:id', component: editjournal, name:'edit-journal'},
 
+     // Account Group Routes
+     { path: '/store-acctgroup', component: storeacctgroup, name: 'store-acctgroup' },
+     { path: '/acctgroup', component: acctgroup, name: 'acctgroup' },
+     { path: '/edit-acctgroup/:id', component: editacctgroup, name: 'edit-acctgroup' },
+
      // Accounting Routes
      { path: '/income', component: income, name:'income'},
      { path: '/balance', component: balance, name:'balance'},
+     { path: '/trialbalance', component: trialbalance, name:'trialbalance'},
 
     // Salary Routes
    
@@ -146,5 +162,9 @@ export const routes = [
     { path: '/pay', component: pay, name: 'pay' },
     { path: '/edit-pay/:id', component: editpay, name: 'edit-pay' },
 
+    // Reservation Routes
+    { path: '/store-reservation', component: storereservation, name:'store-reservation'},
+    { path: '/reservation', component: reservation, name:'reservation'},
+    { path: '/edit-reservation/:id', component: editreservation, name:'edit-reservation'},
 
   ]

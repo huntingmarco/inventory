@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/employee" class="btn btn-primary">Employee</router-link>
+        <router-link to="/employee" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -94,7 +94,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Update</button>
+                      <button type="submit" class="btn btn-primary btn-block col-md-6">Update</button>
                     </div>
                    
                   </form>

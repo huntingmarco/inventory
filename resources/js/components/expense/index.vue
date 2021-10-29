@@ -28,8 +28,8 @@
 
         <!-- tabs -->
 
-          <div class="col-xl-7 col-lg-7">
-              <div class="card mb-6">
+          <div class="col-xl-10 col-lg-12">
+              <div class="card mb-12">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Expense List</h6>
                     </div>

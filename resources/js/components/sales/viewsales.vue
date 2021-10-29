@@ -69,7 +69,7 @@
                     <!-- Simple Tables -->
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Order Details</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Sales Details</h6>
                         </div>
                         <div class="table-responsive">
                         <table class="table align-items-center table-flush">
@@ -135,22 +135,22 @@ data(){
       details:{},  
     }
   },
-
-  created(){
+  methods: {
+    getSales(){
       let id = this.$route.params.id;
 
       axios.get('/api/sales/summary/'+id)
-      .then(({data})=>(this.sales = data))
+      .then(({data})=>{this.sales = data;})
       .catch()
 
       axios.get('/api/sales/saledetails/'+id)
       .then(({data})=>(this.details = data))
       .catch()
-
+    }
   },
+  created(){
+      this.getSales();
 
-  methods: {
-   
   }
 }
 </script>

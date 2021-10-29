@@ -96,19 +96,20 @@
           let total = 0;  
           for(let p of this.sales) 
           {    total += parseFloat(p.total);  }  
-          return total;
+          return  parseFloat(total).toFixed(2);
+
       },
       totalPay(){
           let total = 0;  
           for(let p of this.sales) 
           {    total += parseFloat(p.pay);  }  
-          return total;
+          return  parseFloat(total).toFixed(2);
       },
       totalDue(){
           let total = 0;  
           for(let p of this.sales) 
           {    total += parseFloat(p.due);  }  
-          return total;
+          return  parseFloat(total).toFixed(2);
       }
     },
  

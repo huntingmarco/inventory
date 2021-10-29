@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Acctgroup;
+use App\Models\RoomCategory;
 use DB;
 
-class AcctgroupController extends Controller
+class RoomCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,26 +16,11 @@ class AcctgroupController extends Controller
      */
     public function index()
     {
-        $acctgroup = Acctgroup::all();
-        return response()->json($acctgroup);
+        $roomcategory = RoomCategory::all();
+        return response()->json($roomcategory);
     }
 
-    public function AcctGroupExp()
-    {
-
-        $acctgroup = DB::table('acctgroups')
-            ->where('grouptype','E')
-            ->get();
-            return response()->json($acctgroup);
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
+    
 
     /**
      * Store a newly created resource in storage.
@@ -45,15 +30,7 @@ class AcctgroupController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'group_name' => 'required|unique:acctgroups|max:255',
-            'grouptype' => 'required',
-        ]);
-
-        $acctgroup = new Acctgroup;
-        $acctgroup->group_name = $request->group_name;
-        
-        $acctgroup->save(); 
+        //
     }
 
     /**
@@ -67,13 +44,8 @@ class AcctgroupController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     
+
     /**
      * Update the specified resource in storage.
      *

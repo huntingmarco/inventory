@@ -2,11 +2,11 @@
     <div>
 
     <div class="row">
-        <router-link to="/store-pay" class="btn btn-primary">Add Payroll Range</router-link>
+        <router-link to="/store-acctgroup" class="btn btn-primary">Add Account Group</router-link>
 
     </div>
     <br>
-        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Payfrom">
+        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Here">
     </br>
 
     <div class="row">
@@ -14,27 +14,23 @@
               <!-- Simple Tables -->
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pay List</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Account Group List</h6>
                 </div>
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
-                        <th>Pay From</th>
-                        <th>Pay to</th>
-                        <th>Details</th></th>
-                        <th>Action</th>
+                        <th>Group Name</th>
+                        <th>Group Type</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="pay in filtersearch" :key="pay.id">
-                        <td>{{ pay.payfrom }}</td>
-                        <td>{{ pay.payto }}</td>
-                        <td>{{ pay.details }}</td>
+                      <tr v-for="acctgroup in filtersearch" :key="acctgroups.group_id">
+                        <td>{{ acctgroup.group_name }}</td>
             <td>
-                <router-link :to="{name: 'edit-pay', params:{id:pay.id}}" class="btn btn-sm btn-primary">Edit</router-link>
+                <router-link :to="{name: 'edit-acctgroup', params:{id:acctgroup.group_id}}" class="btn btn-sm btn-primary">Edit</router-link>
 
-                <a @click="deletePay(pay.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Delete</font></a>
+                <a @click="deleteAcctgroup(acctgroup.group_id)" class="btn btn-sm btn-danger"><font color="#fffffff">Delete</font></a>
             </td>
                       </tr>
                       
@@ -62,26 +58,25 @@ export default {
     },
     data(){
         return {
-            pays:[],
+            acctgroups:[],
             searchItem: '',
         }
     },
     computed:{
         filtersearch(){
-            return this.pays.filter(pay =>{
-                return pay.payfrom.match(this.searchItem)
+            return this.acctgroups.filter(acctgroup =>{
+                return acctgroup.group_name.match(this.searchItem)
             })
-            //return this.pays
         }
     },
 
     methods: {
-        allPay(){
-        axios.get('/api/pay/')
-        .then(({data}) => (this.pays = data))
+        allAcctgroup(){
+        axios.get('/api/acctgroup/')
+        .then(({data}) => (this.acctgroups = data))
         .catch()
         },
-        deletePay(id){
+        deleteAcctgroup(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -92,14 +87,14 @@ export default {
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('/api/pay/'+id)
+                axios.delete('/api/acctgroup/'+id)
                 .then(()=>{
-                    this.pays  = this.pays.filter(pay =>{
-                        return pay.id != id
+                    this.acctgroups  = this.acctgroups.filter(acctgroup =>{
+                        return acctgroup.group_id != id
                     })
                 })
                 .catch(()=>{
-                    this.$router.push({name: 'pay'})
+                    this.$router.push({name: 'acctgroup'})
                 })
 
                 Swal.fire(
@@ -112,9 +107,10 @@ export default {
         }
 
 
+
     },
     created(){
-        this.allPay();
+        this.allAcctgroup();
     }
   
 }

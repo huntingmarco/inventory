@@ -26,7 +26,7 @@
   <nav id="sidebar" v-show="$route.path === '/' || $route.path == '/register' || $route.path == '/forget' ? false : true "  style="display:  none;">
 
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar" >
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" style="background-color: #272d36;"href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" style="background-color: #272d36;"href="">
         <div class="sidebar-brand-icon">
           <img src="{{ asset('backend/img/logo/logo2.png') }}">
         </div>
@@ -59,10 +59,9 @@
         </a>
         <div id="collapseBootstrap1" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Billing</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-In</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-Out</router-link>
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Reservation</router-link>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/reservation">Reservation</router-link>
           </div>
         </div>
       </li>
@@ -115,9 +114,9 @@
         </a>
         <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/pay">Create Payroll</router-link>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/pay">Create Payroll Range</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/payroll">Payroll List</router-link>
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/add-payroll">Add Payroll</router-link>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/add-payroll">Add to Payroll</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/employee">Employees</router-link>
           </div>
         </div>
@@ -138,7 +137,7 @@
         <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Example Pages</h6> -->
-            <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">Trial Balance</a>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/trialbalance">Trial Balance</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/balance">Balance Sheet</router-link>
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/income">Income Statement</router-link>
           </div>
@@ -155,7 +154,8 @@
             <!-- <h6 class="collapse-header">Example Pages</h6> -->
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/journal">Journal Entry</router-link>
             <a class="collapse-item text-white" style="margin-left:40px;" href="login.html">General Ledger</a>
-            <a class="collapse-item text-white" style="margin-left:40px;" href="register.html">GL Accounts</a>
+            <!-- <router-link class="collapse-item text-white" style="margin-left:40px;" to="/acctgroup">Account Group</router-link>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="/acctitem">Account Item</router-link> -->
           </div>
         </div>
       </li>

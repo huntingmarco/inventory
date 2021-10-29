@@ -140,6 +140,63 @@ class JournalController extends Controller
         //
     }
 
+    public function GenerateTrialBalance(Request $request)
+    {
+        $rdate = DateTime::createFromFormat('Y-m-d', $request->date)->format('ymd');
+        //refresh temp table
+        $dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $rdate . $request->user );
+
+        //Create temporary table
+       $createIncomeTable = DB::unprepared('create table trial' . $rdate . $request->user . 
+       ' (id bigint not null auto_increment,' .
+       'item_id varchar(20) not null default 0,' .
+       'item_name varchar(50) not null default "",' . 
+       'details varchar(50) not null default "",' . 
+       'trn varchar(50) not null default "",' . 
+       'ref varchar(50) not null default "",' . 
+       'group_id char(7) not null default 0,' .
+       'group_name varchar(50) not null default "",' . 
+       'grouptype char(1) not null default 0 default "",' .
+       'debit double not null default 0,' . 
+       'credit double not null default 0, ' .
+       'bal double not null default 0, ' .
+       'primary key(id))');
+
+       //Get Transaction then insert to temporary table
+    //    DB::statement('INSERT INTO trial' . $rdate . $request->user . ' (item_id,item_name,details,trn,ref,group_id,group_name,grouptype,debit,credit) ' .
+    //    ' Select a.item_id, c.item_name, a.details, a.trn, a.ref, ' .
+    //    ' b.group_id, b.group_name, b.grouptype, if(a.entry="DR",a.amount,0) As tdebit, ' .
+    //    ' if(a.entry="CR",a.amount,0) As tcredit  ' .
+    //    ' From trn as a Inner Join ' .
+    //    ' acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
+    //    ' Inner Join ' .
+    //    ' acctitems as c On Trim(a.item_id) = Trim(c.item_id) ' .
+    //    ' Where a.trndate = "' . $request->date .  '" ' .
+    //    ' Order By b.grouptype, a.item_id');
+
+       DB::statement('INSERT INTO trial' . $rdate . $request->user . ' (item_name,debit,credit) ' .
+       ' Select  c.item_name, sum(if(a.entry="DR",a.amount,0)) As tdebit, ' .
+       ' sum(if(a.entry="CR",a.amount,0)) As tcredit  ' .
+       ' From trn as a Inner Join ' .
+       ' acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
+       ' Inner Join ' .
+       ' acctitems as c On Trim(a.item_id) = Trim(c.item_id) ' .
+       ' Where a.trndate = "' . $request->date .  '" ' .
+       ' Group By c.item_name ');
+
+
+
+       $trial = DB::table('trial' . $rdate . $request->user)
+        ->select('trial' . $rdate . $request->user . '.*')
+          ->get();
+
+       //refresh temp table
+       $dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $rdate . $request->user );
+
+        return response()->json($trial);
+
+    }
+
     public function GenerateIncome(Request $request)
     {
       

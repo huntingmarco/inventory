@@ -18,6 +18,9 @@ class SupplierController extends Controller
     public function index()
     {
         $supplier = Supplier::all();
+        // $supplier =DB::table('suppliers')
+        // ->select('suppliers.id','suppliers.name')
+        // ->get();
         return response()->json($supplier);
     }
 

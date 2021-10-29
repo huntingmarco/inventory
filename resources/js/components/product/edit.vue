@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/product" class="btn btn-primary">All Product</router-link>
+        <router-link to="/product" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -51,16 +51,23 @@
 
 
                     <div class="col-md-6">
-                        <label for="exampleFormControlSelect1">Product Supplier</label>
-                <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
-                
-                    <option :value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>
+                              <label for="exampleFormControlSelect1">Product Supplier</label>
+                              <!-- <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
+                          
+                              <option :value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}</option>
                                         
-                                    </select>    
-                            </div>     
+                              </select>     -->
+
+                              <model-list-select :list="suppliers"
+                                v-model="form.supplier_id"
+                                option-value="id"
+                                option-text="name"
+                                placeholder="select item">
+                            </model-list-select>
+                          </div>     
                             
-                        </div>
-                        </div>
+                    </div>
+                  </div>
 
                     
 
@@ -145,7 +152,7 @@
 
 
                         <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                        <button type="submit" class="btn btn-primary btn-block col-md-6">Update</button>
                         </div>
                         
                     </form>
@@ -165,6 +172,8 @@
 </template>
 
 <script type="text/javascript">
+import 'vue-search-select/dist/VueSearchSelect.css';
+import { ModelListSelect } from 'vue-search-select';
 
 export default {
 
@@ -191,7 +200,7 @@ data(){
       },
       errors: {},
       categories:{},
-      suppliers:{},  
+      suppliers:[],  
     }
   },
   created(){
@@ -232,7 +241,10 @@ data(){
         })
         .catch(error => this.errors = error.response.data.errors)
     },
-  }
+  },
+  components: {
+    ModelListSelect
+    }
   
 
 

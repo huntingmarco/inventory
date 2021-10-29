@@ -22,7 +22,7 @@
                         <div class="form-row">
                             <div class="col-md-12">
                                 <label for="exampleFormControlTextarea1"><b>Search by Date</b></label>
-                                <input type="date" class="form-control" id="exampleInputFirstName" required="" v-model="date">
+                                <input type="date" class="form-control" id="trndate" required="" v-model="date">
                                 
                             </div>
 
@@ -31,7 +31,7 @@
 
                     
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Search</button>
+                      <button type="submit" class="btn btn-primary btn-block" id="generate">Search</button>
                     </div>
                    
                   </form>
@@ -53,7 +53,7 @@
                     <!-- Simple Tables -->
                     <div class="card">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Order Details</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Sales Details</h6>
                         </div>
                         <div class="table-responsive">
                         <table class="table align-items-center table-flush">
@@ -118,10 +118,21 @@ data(){
         .then(({data})=>(this.sales = data))
         .catch(error => this.errors = error.response.data.errors)
     },
+    getsystemdate(){
+            axios.get('/api/sysdate/')
+            .then(({data}) => {this.date = data; })
+            .catch()
+        }
+  },
+  created(){
+    this.getsystemdate();
   }
 }
 </script>
 
 
 <style type="text/css">
+  #trndate,#generate{
+        width: 200px; 
+    }
 </style>

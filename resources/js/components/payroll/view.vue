@@ -44,7 +44,7 @@
                         <td>{{ payroll.amount }}</td>
                         <td>{{ payroll.salary_date }}</td>
             <td>
-                <router-link :to="{name: 'edit-payroll', params:{id:payroll.id, pay_id:payroll.pay_id}}" class="btn btn-sm btn-primary">Edit</router-link>
+                <router-link :to="{name: 'edit-payroll', params:{id:payroll.id, pay_id:payroll.pay_id}}" class="btn btn-sm btn-primary" >Edit</router-link>
 
                
             </td>

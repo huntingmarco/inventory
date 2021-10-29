@@ -2,7 +2,7 @@
     <div>
 
     <div class="row">
-        <router-link to="/category" class="btn btn-primary">Category</router-link>
+        <router-link to="/category" class="btn btn-primary">Back</router-link>
 
     </div>
 
@@ -20,7 +20,7 @@
                   
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Category Name" v-model="form.category_name">
                                 <small class="text-danger" v-if="errors.category_name">{{ errors.category_name[0] }}</small>
                             </div>
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Update</button>
+                      <button type="submit" class="btn btn-primary btn-block col-md-6">Update</button>
                     </div>
                    
                   </form>

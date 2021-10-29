@@ -120,14 +120,16 @@ class PosController extends Controller
    }
 
    public function SearchSalesDate(Request $request){
-    $salesdate = $request->date;
-    $newdate = new DateTime($salesdate);
-    $done = $newdate->format('d/m/Y'); 
+    // $salesdate = $request->date;
+    // $newdate = new DateTime($salesdate);
+    // $done = $newdate->format('d/m/Y'); 
+
+    
 
     $sales = DB::table('sales')
         ->join('customers','sales.customer_id','customers.id')
         ->select('customers.name','sales.*')
-        ->where('sales.sale_date',$done)
+        ->where('sales.sale_date',$request->date)
         ->get();
 
     return response()->json($sales);
