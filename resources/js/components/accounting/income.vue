@@ -137,41 +137,47 @@ data(){
     }
   },
   computed:{
-    get_income_account(){
-        return this.accounts.filter(account =>{
+    const accts = this.accounts.filter(account =>{
             return account.grouptype.match('D')
         })
+    get_income_account(){
+        return accts
     },
     totalIncomeBal(){
       let total = 0;  
-      for(let p of this.accounts.filter(account =>{
+      const accts = this.accounts.filter(account =>{
             return account.grouptype.match('D')
-        })) 
+        })
+      for(let p of accts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
     get_expense_account(){
-        return this.accounts.filter(account =>{
+    const accts = this.accounts.filter(account =>{
             return account.grouptype.match('E')
         })
+        return accts
     },
     totalExpenseBal(){
       let total = 0;  
-      for(let p of this.accounts.filter(account =>{
+      const accts = this.accounts.filter(account =>{
             return account.grouptype.match('E')
-        })) 
+        })
+      for(let p of accts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
     netIncome(){
       let total = 0;  
-      for(let inc of this.accounts.filter(account =>{
+      const accts_inc = this.accounts.filter(account =>{
             return account.grouptype.match('D')
-        })) 
+        })
+      for(let inc of accts_inc) 
       {    total += parseFloat(inc.bal);  }  
-      for(let exp of this.accounts.filter(account =>{
+      const accts_exp = this.accounts.filter(account =>{
             return account.grouptype.match('E')
-        })) 
+        })
+      for(let exp of accts_exp) 
       {    total -= parseFloat(exp.bal);  }
       return  parseFloat(total).toFixed(2);
     },
