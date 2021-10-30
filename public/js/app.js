@@ -2381,7 +2381,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         user: User.name()
       }; //v-model name -> date:
 
-      axios.post('/api/balance/', data).then(function (_ref) {
+      axios.post('/api/balance', data).then(function (_ref) {
         var data = _ref.data;
         _this.accounts = data;
         console.log(_this.accounts);
@@ -2645,7 +2645,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         user: User.name()
       }; //v-model name -> date:
 
-      axios.post('/api/income/', data).then(function (_ref) {
+      axios.post('/api/income', data).then(function (_ref) {
         var data = _ref.data;
         _this.accounts = data;
         console.log(_this.accounts);

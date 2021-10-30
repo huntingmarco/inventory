@@ -229,7 +229,7 @@ data(){
    
     generateBalanceSheet(){
         var data = {date:this.date, user: User.name()} //v-model name -> date:
-        axios.post('/api/balance/', data)
+        axios.post('/api/balance', data)
         .then(({data})=>{this.accounts = data;console.log(this.accounts)})
         .catch()
     },

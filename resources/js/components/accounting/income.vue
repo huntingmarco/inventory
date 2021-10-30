@@ -177,7 +177,7 @@ data(){
     generateIncome(){
        
         var data = {date:this.date, user: User.name()} //v-model name -> date:
-        axios.post('/api/income/', data)
+        axios.post('/api/income', data)
         .then(({data})=>{this.accounts = data;console.log(this.accounts)})
         .catch()
 
