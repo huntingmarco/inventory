@@ -2559,10 +2559,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   computed: {
     get_income_account: function get_income_account() {
+      var accts = this.accounts.filter(function (account) {
+        return account.grouptype.match('D');
+      });
       return this.accounts;
     },
     totalIncomeBal: function totalIncomeBal() {
       var total = 0;
+      var accts = this.accounts.filter(function (account) {
+        return account.grouptype.match('D');
+      });
 
       var _iterator = _createForOfIteratorHelper(this.accounts),
           _step;
@@ -2581,10 +2587,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return parseFloat(total).toFixed(2);
     },
     get_expense_account: function get_expense_account() {
+      var accts = this.accounts.filter(function (account) {
+        return account.grouptype.match('E');
+      });
       return this.accounts;
     },
     totalExpenseBal: function totalExpenseBal() {
       var total = 0;
+      var accts = this.accounts.filter(function (account) {
+        return account.grouptype.match('E');
+      });
 
       var _iterator2 = _createForOfIteratorHelper(this.accounts),
           _step2;
@@ -2604,6 +2616,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     netIncome: function netIncome() {
       var total = 0;
+      var accts_inc = this.accounts.filter(function (account) {
+        return account.grouptype.match('D');
+      });
 
       var _iterator3 = _createForOfIteratorHelper(this.accounts),
           _step3;
@@ -2618,6 +2633,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } finally {
         _iterator3.f();
       }
+
+      var accts_exp = this.accounts.filter(function (account) {
+        return account.grouptype.match('E');
+      });
 
       var _iterator4 = _createForOfIteratorHelper(this.accounts),
           _step4;
