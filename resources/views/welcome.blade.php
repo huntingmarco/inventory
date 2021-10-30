@@ -60,8 +60,8 @@
         </a>
         <div id="collapseBootstrap1" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar" style="background-color: #4a5872; margin:0px 0px 0px 0px;">
           <div class="py-2 collapse-inner rounded">
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-In</router-link>
-            <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-Out</router-link>
+            <!-- <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-In</router-link>
+            <router-link class="collapse-item text-white" style="margin-left:40px;" to="">Check-Out</router-link> -->
             <router-link class="collapse-item text-white" style="margin-left:40px;" to="/reservation">Reservation</router-link>
           </div>
         </div>
@@ -240,7 +240,7 @@
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>copyright &copy; 2021 - developed by
-              <b><a href="https://www.capturebay.com/" target="_blank">Capture Bay</a></b>
+              <b><a href="https://www.capturebay.com/" target="_blank">Capture Bay | Jannel Laquihon</a></b>
             </span>
           </div>
         </div>

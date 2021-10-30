@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use DB;
+use DateTime;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ReservationController extends Controller
@@ -35,7 +36,7 @@ class ReservationController extends Controller
             'customer_id' => 'required|max:255',
             'idcategory' => 'required',
             'idroom' => 'required',
-            'numrooms' => 'numrooms',
+            'numrooms' => 'required',
             'date_from' => 'required',
             'date_to' => 'required',
             'phone' => 'required',

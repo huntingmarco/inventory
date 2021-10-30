@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                               <label for="exampleFormControlSelect1">Room ID</label>
                               <select class="form-control" id="exampleFormControlSelect1" v-model="form.idroom">
-                                <option :value="room.id" v-for="room in rooms">{{ rooms.room }}</option>
+                                <option :value="room.id" v-for="room in rooms">{{ room.name }}</option>
                               </select>   
                     </div>     
                     
@@ -53,18 +53,24 @@
         
          <div class="form-group">
             <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="exampleFormControlSelect1">Date From</label>
-                        <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Transact Date" v-model="form.transact_date">
-                        <small class="text-danger" v-if="errors.address">{{ errors.transact_date[0] }}</small>
+                        <input type="date" class="form-control" id="exampleInputFirstName1" placeholder="Date from" v-model="form.date_from">
+                        <small class="text-danger" v-if="errors.address">{{ errors.date_from[0] }}</small>
 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="exampleFormControlSelect1">Date To</label>
-                        <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Transact Date" v-model="form.transact_date">
-                        <small class="text-danger" v-if="errors.address">{{ errors.transact_date[0] }}</small>   
-                    </div>    
+                        <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Date to" v-model="form.date_to">
+                        <small class="text-danger" v-if="errors.address">{{ errors.date_to[0] }}</small>   
+                    </div>   
+
+                    <div class="col-md-4">
+                        <label for="exampleFormControlSelect1">No. of Rooms</label>
+                        <input type="number" class="form-control" id="exampleInputFirstName" placeholder="No. of Rooms" v-model="form.numrooms">
+                        <small class="text-danger" v-if="errors.address">{{ errors.numrooms[0] }}</small>   
+                    </div> 
             </div>
         </div>
 
@@ -87,8 +93,8 @@
 
             <div class="col-md-6">
                 <label for="exampleFormControlSelect1">Phone</label>
-                <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.buying_price">
-                <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
+                <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.phone">
+                <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small>
             </div>
 
           </div>
@@ -100,15 +106,15 @@
           <div class="form-row">
             <div class="col-md-6">
                     <label for="exampleFormControlSelect1">Email</label>
-                    <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.buying_price">
-                    <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>  
+                    <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.email">
+                    <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>  
             </div>
 
 
             <div class="col-md-6">
                 <label for="exampleFormControlSelect1">Notes</label>
-                <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.buying_price">
-                <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
+                <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.notes">
+                <small class="text-danger" v-if="errors.notes"> {{ errors.notes[0] }} </small>
             </div>
 
           </div>
@@ -199,16 +205,16 @@ import { ModelListSelect } from 'vue-search-select';
         },
   },
   created(){
-    axios.get('/api/category_room/')
-    .then(({data}) => (this.categories = data))
+    axios.get('/api/roomcategory/')
+    .then(({data}) => (this.room_categories = data))
 
     axios.get('/api/customer/')
     .then(({data}) => (this.customers = data))
 
     this.getsystemdate();
 
-    axios.get('/api/category')
-    .then(response => {this.room_categories = response.data;console.log(response);})
+    // axios.get('/api/roomcategory')
+    // .then(response => {this.room_categories = response.data;console.log(response);})
 
   } ,
   components: {

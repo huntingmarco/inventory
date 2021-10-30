@@ -114,7 +114,7 @@ data(){
    
     searchDate(){
         var data = {date:this.date} //v-model name -> date:
-        axios.post('/api/search/sales/', data)
+        axios.post('/api/search/sales', data)
         .then(({data})=>(this.sales = data))
         .catch(error => this.errors = error.response.data.errors)
     },
