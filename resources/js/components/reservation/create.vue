@@ -35,7 +35,7 @@
                     <div class="col-md-6">
                             <label for="exampleFormControlSelect1">Room Category</label>
                             <select @change="changeCateg($event)" class="form-control" id="exampleFormControlSelect1" v-model="form.idcategory">
-                                <option :value="category.id" v-for="category in room_categories">{{ category.name }}</option>
+                                <option :value="category.id" v-for="category in room_categories">{{ category.roomcategory_name }}</option>
                             </select>  
                     </div>
 
@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                               <label for="exampleFormControlSelect1">Room ID</label>
                               <select class="form-control" id="exampleFormControlSelect1" v-model="form.idroom">
-                                <option :value="room.id" v-for="room in rooms">{{ room.name }}</option>
+                                <option :value="room.id" v-for="room in rooms">{{ room.room_name }}</option>
                               </select>   
                     </div>     
                     

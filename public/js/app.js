@@ -8708,7 +8708,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios.get('/api/product/').then(function (_ref) {
         var data = _ref.data;
-        return _this2.products = data;
+        _this2.products = data;
+        console.log(_this2.products);
       })["catch"]();
     },
     deleteProduct: function deleteProduct(id) {
@@ -9178,6 +9179,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -9188,7 +9199,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      customers: [],
+      reservations: [],
       searchItem: ''
     };
   },
@@ -9196,21 +9207,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     filtersearch: function filtersearch() {
       var _this = this;
 
-      return this.customers.filter(function (customer) {
-        return customer.name.match(_this.searchItem);
+      return this.reservations.filter(function (reservation) {
+        return reservation.name.match(_this.searchItem);
       });
     }
   },
   methods: {
-    allCustomer: function allCustomer() {
+    allReservation: function allReservation() {
       var _this2 = this;
 
-      axios.get('/api/customer/').then(function (_ref) {
+      axios.get('/api/reservation/').then(function (_ref) {
         var data = _ref.data;
-        return _this2.customers = data;
+        _this2.reservations = data;
+        console.log(_this2.reservations);
       })["catch"]();
     },
-    deleteCustomer: function deleteCustomer(id) {
+    deleteReservation: function deleteReservation(id) {
       var _this3 = this;
 
       Swal.fire({
@@ -9220,25 +9232,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, cancel it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]('/api/customer/' + id).then(function () {
-            _this3.customers = _this3.customers.filter(function (customer) {
-              return customer.id != id;
+          axios.post('/api/cancelreservation/' + id).then(function () {
+            _this3.reservations = _this3.reservations.filter(function (reservation) {
+              return reservation.id != id;
             });
           })["catch"](function () {
             _this3.$router.push({
-              name: 'customer'
+              name: 'reservation'
             });
           });
-          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+          Swal.fire('Cancelled!', 'Your file has been cancelled.', 'success');
         }
       });
     }
   }
 }, "created", function created() {
-  this.allCustomer();
+  this.allReservation();
 }));
 
 /***/ }),
@@ -69547,7 +69559,7 @@ var render = function() {
       ],
       staticClass: "form-control",
       staticStyle: { width: "300px" },
-      attrs: { type: "text", placeholder: "Search Here" },
+      attrs: { type: "text", placeholder: "Search Product" },
       domProps: { value: _vm.searchItem },
       on: {
         input: function($event) {
@@ -69984,7 +69996,7 @@ var render = function() {
                                 return _c(
                                   "option",
                                   { domProps: { value: category.id } },
-                                  [_vm._v(_vm._s(category.name))]
+                                  [_vm._v(_vm._s(category.roomcategory_name))]
                                 )
                               }),
                               0
@@ -70036,7 +70048,7 @@ var render = function() {
                                 return _c(
                                   "option",
                                   { domProps: { value: room.id } },
-                                  [_vm._v(_vm._s(room.name))]
+                                  [_vm._v(_vm._s(room.room_name))]
                                 )
                               }),
                               0
@@ -70450,7 +70462,7 @@ var render = function() {
       ],
       staticClass: "form-control",
       staticStyle: { width: "300px" },
-      attrs: { type: "text", placeholder: "Search Here" },
+      attrs: { type: "text", placeholder: "Search Customer" },
       domProps: { value: _vm.searchItem },
       on: {
         input: function($event) {
@@ -70478,15 +70490,25 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.filtersearch, function(customer) {
-                    return _c("tr", { key: customer.id }, [
-                      _c("td", [_vm._v(_vm._s(customer.name))]),
+                  _vm._l(_vm.filtersearch, function(reservation) {
+                    return _c("tr", { key: reservation.id }, [
+                      _c("td", [_vm._v(_vm._s(reservation.date_from))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.phone))]),
+                      _c("td", [_vm._v(_vm._s(reservation.date_to))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.email))]),
+                      _c("td", [_vm._v(_vm._s(reservation.roomcategory_name))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(customer.address))]),
+                      _c("td", [_vm._v(_vm._s(reservation.room_name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(reservation.numrooms))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(reservation.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(reservation.phone))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(reservation.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(reservation.status))]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -70497,8 +70519,8 @@ var render = function() {
                               staticClass: "btn btn-sm btn-primary",
                               attrs: {
                                 to: {
-                                  name: "edit-customer",
-                                  params: { id: customer.id }
+                                  name: "edit-reservation",
+                                  params: { id: reservation.id }
                                 }
                               }
                             },
@@ -70511,13 +70533,13 @@ var render = function() {
                               staticClass: "btn btn-sm btn-danger",
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteCustomer(customer.id)
+                                  return _vm.deleteReservation(reservation.id)
                                 }
                               }
                             },
                             [
                               _c("font", { attrs: { color: "#fffffff" } }, [
-                                _vm._v("Delete")
+                                _vm._v("Cancel")
                               ])
                             ],
                             1
@@ -70563,13 +70585,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-light" }, [
       _c("tr", [
-        _c("th", [_vm._v("Name")]),
+        _c("th", [_vm._v("Date From")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date To")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Room")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("No. of Rooms")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Customer")]),
         _vm._v(" "),
         _c("th", [_vm._v("Phone")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])

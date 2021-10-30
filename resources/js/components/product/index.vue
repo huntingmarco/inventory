@@ -6,7 +6,7 @@
 
     </div>
     <br>
-        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Here">
+        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Product">
     </br>
 
     <div class="row">
@@ -85,7 +85,7 @@ export default {
     methods: {
         allProduct(){
         axios.get('/api/product/')
-        .then(({data}) => (this.products = data))
+        .then(({data}) => {this.products = data;console.log(this.products)})
         .catch()
         },
         deleteProduct(id){

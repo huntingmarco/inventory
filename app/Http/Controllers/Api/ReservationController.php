@@ -18,8 +18,17 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservation = DB::table('reservations')->orderBy('id','ASC')->get();
-        return response()->json($reservation);
+        // $reservation = DB::table('reservations')->orderBy('id','ASC')->get();
+        // return response()->json($reservation);
+
+        $reservation = DB::table('reservations')
+                    ->join('room_categories','reservations.idcategory','room_categories.id')
+                    ->join('rooms','reservations.idroom','rooms.id')
+                    ->join('customers','reservations.customer_id','customers.id')
+                    ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
+                    ->orderBy('reservations.id','DESC')
+                    ->get();
+                    return response()->json($reservation);
     }
 
 
@@ -59,6 +68,7 @@ class ReservationController extends Controller
             $reservation->phone = $request->phone;
             $reservation->email = $request->email;
             $reservation->notes = $request->notes;
+            $reservation->status = 'RESERVED';
            
             $reservation->save(); 
    
@@ -97,6 +107,15 @@ class ReservationController extends Controller
         $data['phone'] = $request->phone;
         $data['notes'] = $request->notes;
         $user = DB::table('reservations')->where('id',$id)->update($data);
+    }
+
+    public function cancelReservation($id)
+    {
+        $data = array();
+        $data['status'] = 'CANCELLED';
+        $user = DB::table('reservations')->where('id',$id)->update($data);
+
+       
     }
 
     /**

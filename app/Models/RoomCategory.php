@@ -10,7 +10,7 @@ class RoomCategory extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'name',
+        'roomcategory_name',
         'idcategory'
     ];
 }

@@ -6,7 +6,7 @@
 
     </div>
     <br>
-        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Here">
+        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Customer">
     </br>
 
     <div class="row">
@@ -20,23 +20,33 @@
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
-                        <th>Name</th>
+                        <th>Date From</th>
+                        <th>Date To</th>
+                        <th>Category</th>
+                        <th>Room</th>
+                        <th>No. of Rooms</th>
+                        <th>Customer</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th>Address</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="customer in filtersearch" :key="customer.id">
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.phone }}</td>
-                        <td>{{ customer.email }}</td>
-                        <td>{{ customer.address }}</td>
+                      <tr v-for="reservation in filtersearch" :key="reservation.id">
+                        <td>{{ reservation.date_from }}</td>
+                        <td>{{ reservation.date_to }}</td>
+                        <td>{{ reservation.roomcategory_name }}</td>
+                        <td>{{ reservation.room_name }}</td>
+                        <td>{{ reservation.numrooms }}</td>
+                        <td>{{ reservation.name }}</td>
+                        <td>{{ reservation.phone }}</td>
+                        <td>{{ reservation.email }}</td>
+                        <td>{{ reservation.status }}</td>
             <td>
-                <router-link :to="{name: 'edit-customer', params:{id:customer.id}}" class="btn btn-sm btn-primary">Edit</router-link>
+                <router-link :to="{name: 'edit-reservation', params:{id:reservation.id}}" class="btn btn-sm btn-primary">Edit</router-link>
 
-                <a @click="deleteCustomer(customer.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Delete</font></a>
+                <a @click="deleteReservation(reservation.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Cancel</font></a>
             </td>
                       </tr>
                       
@@ -64,25 +74,25 @@ export default {
     },
     data(){
         return {
-            customers:[],
+            reservations:[],
             searchItem: '',
         }
     },
     computed:{
         filtersearch(){
-            return this.customers.filter(customer =>{
-                return customer.name.match(this.searchItem)
+            return this.reservations.filter(reservation =>{
+                return reservation.name.match(this.searchItem)
             })
         }
     },
 
     methods: {
-        allCustomer(){
-        axios.get('/api/customer/')
-        .then(({data}) => (this.customers = data))
+        allReservation(){
+        axios.get('/api/reservation/')
+        .then(({data}) => {this.reservations = data;console.log(this.reservations)})
         .catch()
         },
-        deleteCustomer(id){
+        deleteReservation(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -90,22 +100,26 @@ export default {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, cancel it!'
             }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete('/api/customer/'+id)
+                axios.post('/api/cancelreservation/'+id)
                 .then(()=>{
-                    this.customers  = this.customers.filter(customer =>{
-                        return customer.id != id
-                    })
+
+                    this.reservations  = this.reservations.filter(reservation =>{
+                        return reservation.id != id
+                    });
+
+                    
+
                 })
                 .catch(()=>{
-                    this.$router.push({name: 'customer'})
+                    this.$router.push({name: 'reservation'})
                 })
 
                 Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
+                'Cancelled!',
+                'Your file has been cancelled.',
                 'success'
                 )
             }
@@ -116,7 +130,7 @@ export default {
 
     },
     created(){
-        this.allCustomer();
+        this.allReservation();
     }
   
 }
