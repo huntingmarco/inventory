@@ -41,7 +41,7 @@
 
 
                     <div class="col-md-6">
-                    <label for="exampleFormControlSelect1">Room ID<label>
+                              <label for="exampleFormControlSelect1">Room ID</label>
                               <select class="form-control" id="exampleFormControlSelect1" v-model="form.idroom">
                                 <option :value="room.id" v-for="room in rooms">{{ rooms.room }}</option>
                               </select>   
@@ -191,7 +191,7 @@ import { ModelListSelect } from 'vue-search-select';
       .then(response => {this.rooms = response.data;console.log(response);})
       .catch(error => this.errors = error.response.data.errors)
       
-    }
+    },
     getsystemdate(){
             axios.get('/api/sysdate/')
             .then(({data}) => {this.form.date_from = data;this.form.date_to = data; })

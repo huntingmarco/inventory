@@ -2561,16 +2561,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   computed: {
     get_income_account: function get_income_account() {
-      return this.accounts.filter(function (account) {
-        return account.grouptype.match('D');
-      });
+      return this.accounts;
     },
     totalIncomeBal: function totalIncomeBal() {
       var total = 0;
 
-      var _iterator = _createForOfIteratorHelper(this.accounts.filter(function (account) {
-        return account.grouptype.match('D');
-      })),
+      var _iterator = _createForOfIteratorHelper(this.accounts),
           _step;
 
       try {
@@ -2587,16 +2583,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return parseFloat(total).toFixed(2);
     },
     get_expense_account: function get_expense_account() {
-      return this.accounts.filter(function (account) {
-        return account.grouptype.match('E');
-      });
+      return this.accounts;
     },
     totalExpenseBal: function totalExpenseBal() {
       var total = 0;
 
-      var _iterator2 = _createForOfIteratorHelper(this.accounts.filter(function (account) {
-        return account.grouptype.match('E');
-      })),
+      var _iterator2 = _createForOfIteratorHelper(this.accounts),
           _step2;
 
       try {
@@ -2615,9 +2607,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     netIncome: function netIncome() {
       var total = 0;
 
-      var _iterator3 = _createForOfIteratorHelper(this.accounts.filter(function (account) {
-        return account.grouptype.match('D');
-      })),
+      var _iterator3 = _createForOfIteratorHelper(this.accounts),
           _step3;
 
       try {
@@ -2631,9 +2621,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _iterator3.f();
       }
 
-      var _iterator4 = _createForOfIteratorHelper(this.accounts.filter(function (account) {
-        return account.grouptype.match('E');
-      })),
+      var _iterator4 = _createForOfIteratorHelper(this.accounts),
           _step4;
 
       try {
@@ -5359,7 +5347,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     getsettings: function getsettings() {
       var _this6 = this;
 
-      axios.get('/api/settings/').then(function (_ref2) {
+      axios.get('/api/settings').then(function (_ref2) {
         var data = _ref2.data;
         return _this6.settings = data;
       })["catch"]();
@@ -5774,7 +5762,7 @@ __webpack_require__.r(__webpack_exports__);
     TodaySales: function TodaySales() {
       var _this = this;
 
-      axios.get('/api/today/sales/').then(function (_ref) {
+      axios.get('/api/today/sales').then(function (_ref) {
         var data = _ref.data;
         return _this.todaysales = data;
       })["catch"]();
@@ -5782,7 +5770,7 @@ __webpack_require__.r(__webpack_exports__);
     TodayIncome: function TodayIncome() {
       var _this2 = this;
 
-      axios.get('/api/today/income/').then(function (_ref2) {
+      axios.get('/api/today/income').then(function (_ref2) {
         var data = _ref2.data;
         return _this2.income = data;
       })["catch"]();
@@ -5790,7 +5778,7 @@ __webpack_require__.r(__webpack_exports__);
     TodayDue: function TodayDue() {
       var _this3 = this;
 
-      axios.get('/api/today/due/').then(function (_ref3) {
+      axios.get('/api/today/due').then(function (_ref3) {
         var data = _ref3.data;
         return _this3.due = data;
       })["catch"]();
@@ -5798,7 +5786,7 @@ __webpack_require__.r(__webpack_exports__);
     TodayExpense: function TodayExpense() {
       var _this4 = this;
 
-      axios.get('/api/today/expense/').then(function (_ref4) {
+      axios.get('/api/today/expense').then(function (_ref4) {
         var data = _ref4.data;
         return _this4.expense = data;
       })["catch"]();
@@ -9018,6 +9006,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_created$data$methods = {
@@ -9042,7 +9031,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         notes: null
       },
       errors: {},
-      categories: {},
+      room_categories: {},
+      rooms: {},
       customers: []
     };
   },
@@ -9061,28 +9051,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.errors = error.response.data.errors;
       });
     },
-    getsystemdate: function getsystemdate() {
+    changeCateg: function changeCateg(event) {
       var _this2 = this;
+
+      this.idcategory = event.target.value;
+      axios.get('/api/room/categ/' + this.idcategory).then(function (response) {
+        _this2.rooms = response.data;
+        console.log(response);
+      })["catch"](function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
+    },
+    getsystemdate: function getsystemdate() {
+      var _this3 = this;
 
       axios.get('/api/sysdate/').then(function (_ref) {
         var data = _ref.data;
-        _this2.form.date_from = data;
-        _this2.form.date_to = data;
+        _this3.form.date_from = data;
+        _this3.form.date_to = data;
       })["catch"]();
     }
   }
 }, _defineProperty(_created$data$methods, "created", function created() {
-  var _this3 = this;
+  var _this4 = this;
 
   axios.get('/api/category_room/').then(function (_ref2) {
     var data = _ref2.data;
-    return _this3.categories = data;
+    return _this4.categories = data;
   });
   axios.get('/api/customer/').then(function (_ref3) {
     var data = _ref3.data;
-    return _this3.customers = data;
+    return _this4.customers = data;
   });
   this.getsystemdate();
+  axios.get('/api/category').then(function (response) {
+    _this4.room_categories = response.data;
+    console.log(response);
+  });
 }), _defineProperty(_created$data$methods, "components", {
   ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__.ModelListSelect
 }), _created$data$methods);
@@ -69685,8 +69690,67 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.category_id,
-                                    expression: "form.category_id"
+                                    value: _vm.form.idcategory,
+                                    expression: "form.idcategory"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "exampleFormControlSelect1" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "idcategory",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.changeCateg($event)
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(_vm.room_categories, function(category) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: category.id } },
+                                  [_vm._v(_vm._s(category.name))]
+                                )
+                              }),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "exampleFormControlSelect1" } },
+                              [_vm._v("Room ID")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.idroom,
+                                    expression: "form.idroom"
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -69704,7 +69768,7 @@ var render = function() {
                                       })
                                     _vm.$set(
                                       _vm.form,
-                                      "category_id",
+                                      "idroom",
                                       $event.target.multiple
                                         ? $$selectedVal
                                         : $$selectedVal[0]
@@ -69712,63 +69776,15 @@ var render = function() {
                                   }
                                 }
                               },
-                              _vm._l(_vm.categories, function(category) {
+                              _vm._l(_vm.rooms, function(room) {
                                 return _c(
                                   "option",
-                                  { domProps: { value: category.id } },
-                                  [_vm._v(_vm._s(category.category_name))]
+                                  { domProps: { value: room.id } },
+                                  [_vm._v(_vm._s(_vm.rooms.room))]
                                 )
                               }),
                               0
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Room Code")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.product_code,
-                                  expression: "form.product_code"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                id: "exampleInputFirstName",
-                                placeholder: "Enter Your Product Code"
-                              },
-                              domProps: { value: _vm.form.product_code },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "product_code",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.product_code
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(_vm.errors.product_code[0]) +
-                                      " "
-                                  )
-                                ])
-                              : _vm._e()
                           ])
                         ])
                       ]),
