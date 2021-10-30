@@ -2562,7 +2562,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var accts = this.accounts.filter(function (account) {
         return account.grouptype.match('D');
       });
-      return this.accounts;
+      return accts;
     },
     totalIncomeBal: function totalIncomeBal() {
       var total = 0;
@@ -2570,7 +2570,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return account.grouptype.match('D');
       });
 
-      var _iterator = _createForOfIteratorHelper(this.accounts),
+      var _iterator = _createForOfIteratorHelper(accts),
           _step;
 
       try {
@@ -2590,7 +2590,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var accts = this.accounts.filter(function (account) {
         return account.grouptype.match('E');
       });
-      return this.accounts;
+      return accts;
     },
     totalExpenseBal: function totalExpenseBal() {
       var total = 0;
@@ -2598,7 +2598,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return account.grouptype.match('E');
       });
 
-      var _iterator2 = _createForOfIteratorHelper(this.accounts),
+      var _iterator2 = _createForOfIteratorHelper(accts),
           _step2;
 
       try {
@@ -2620,7 +2620,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return account.grouptype.match('D');
       });
 
-      var _iterator3 = _createForOfIteratorHelper(this.accounts),
+      var _iterator3 = _createForOfIteratorHelper(accts_inc),
           _step3;
 
       try {
@@ -2638,7 +2638,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return account.grouptype.match('E');
       });
 
-      var _iterator4 = _createForOfIteratorHelper(this.accounts),
+      var _iterator4 = _createForOfIteratorHelper(accts_exp),
           _step4;
 
       try {

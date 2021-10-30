@@ -143,14 +143,14 @@ data(){
       const accts = this.accounts.filter(account =>{
             return account.grouptype.match('D')
         })
-        return this.accounts
+        return accts
     },
     totalIncomeBal(){
       let total = 0;  
       const accts = this.accounts.filter(account =>{
             return account.grouptype.match('D')
         })
-      for(let p of this.accounts) 
+      for(let p of accts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
@@ -158,14 +158,14 @@ data(){
     const accts = this.accounts.filter(account =>{
             return account.grouptype.match('E')
         })
-        return this.accounts
+        return accts
     },
     totalExpenseBal(){
       let total = 0;  
       const accts = this.accounts.filter(account =>{
             return account.grouptype.match('E')
         })
-      for(let p of this.accounts) 
+      for(let p of accts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
@@ -174,13 +174,13 @@ data(){
       const accts_inc = this.accounts.filter(account =>{
             return account.grouptype.match('D')
         })
-      for(let inc of this.accounts) 
+      for(let inc of accts_inc) 
       {    total += parseFloat(inc.bal);  }  
 
       const accts_exp = this.accounts.filter(account =>{
             return account.grouptype.match('E')
         })
-      for(let exp of this.accounts) 
+      for(let exp of accts_exp) 
       {    total -= parseFloat(exp.bal);  }
       return  parseFloat(total).toFixed(2);
     },
