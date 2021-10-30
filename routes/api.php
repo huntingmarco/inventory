@@ -87,7 +87,7 @@ Route::Get('/sales/saledetails/{id}','App\Http\Controllers\Api\SaleController@Sa
 Route::Post('/search/sales','App\Http\Controllers\Api\PosController@SearchSalesDate');
 
 //Admin Dashboard Route
-Route::Post('/today/sales','App\Http\Controllers\Api\PosController@TodaySales');
+Route::Get('/today/sales','App\Http\Controllers\Api\PosController@TodaySales');
 Route::Get('/today/income','App\Http\Controllers\Api\PosController@TodayIncome');
 Route::Get('/today/due','App\Http\Controllers\Api\PosController@TodayDue');
 Route::Get('/today/expense','App\Http\Controllers\Api\PosController@TodayExpense');

@@ -373,22 +373,22 @@ export default {
 
   methods:{
     TodaySales(){
-      axios.post('/api/today/sales/')
+      axios.get('/api/today/sales')
         .then(({data})=>(this.todaysales = data))
         .catch()
     },
     TodayIncome(){
-      axios.get('/api/today/income/')
+      axios.get('/api/today/income')
         .then(({data})=>(this.income = data))
         .catch()
     },
     TodayDue(){
-      axios.get('/api/today/due/')
+      axios.get('/api/today/due')
         .then(({data})=>(this.due = data))
         .catch()
     },
     TodayExpense(){
-      axios.get('/api/today/expense/')
+      axios.get('/api/today/expense')
         .then(({data})=>(this.expense = data))
         .catch()
     },
