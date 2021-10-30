@@ -174,6 +174,7 @@ data(){
         })
       for(let inc of accts_inc) 
       {    total += parseFloat(inc.bal);  }  
+
       const accts_exp = this.accounts.filter(account =>{
             return account.grouptype.match('E')
         })

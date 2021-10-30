@@ -373,7 +373,7 @@ export default {
 
   methods:{
     TodaySales(){
-      axios.get('/api/today/sales/')
+      axios.post('/api/today/sales/')
         .then(({data})=>(this.todaysales = data))
         .catch()
     },
