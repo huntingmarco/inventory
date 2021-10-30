@@ -137,48 +137,48 @@ data(){
     }
   },
   computed:{
-    const accts = this.accounts.filter(account =>{
-            return account.grouptype.match('D')
-        })
+    // const accts = this.accounts.filter(account =>{
+    //         return account.grouptype.match('D')
+    //     })
     get_income_account(){
-        return accts
+        return this.accounts
     },
     totalIncomeBal(){
       let total = 0;  
-      const accts = this.accounts.filter(account =>{
-            return account.grouptype.match('D')
-        })
-      for(let p of accts) 
+      // const accts = this.accounts.filter(account =>{
+      //       return account.grouptype.match('D')
+      //   })
+      for(let p of this.accounts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
     get_expense_account(){
-    const accts = this.accounts.filter(account =>{
-            return account.grouptype.match('E')
-        })
-        return accts
+    // const accts = this.accounts.filter(account =>{
+    //         return account.grouptype.match('E')
+    //     })
+        return this.accounts
     },
     totalExpenseBal(){
       let total = 0;  
-      const accts = this.accounts.filter(account =>{
-            return account.grouptype.match('E')
-        })
-      for(let p of accts) 
+      // const accts = this.accounts.filter(account =>{
+      //       return account.grouptype.match('E')
+      //   })
+      for(let p of this.accounts) 
       {    total += parseFloat(p.bal);  }  
       return  parseFloat(total).toFixed(2);
     },
     netIncome(){
       let total = 0;  
-      const accts_inc = this.accounts.filter(account =>{
-            return account.grouptype.match('D')
-        })
-      for(let inc of accts_inc) 
+      // const accts_inc = this.accounts.filter(account =>{
+      //       return account.grouptype.match('D')
+      //   })
+      for(let inc of this.accounts) 
       {    total += parseFloat(inc.bal);  }  
 
-      const accts_exp = this.accounts.filter(account =>{
-            return account.grouptype.match('E')
-        })
-      for(let exp of accts_exp) 
+      // const accts_exp = this.accounts.filter(account =>{
+      //       return account.grouptype.match('E')
+      //   })
+      for(let exp of this.accounts) 
       {    total -= parseFloat(exp.bal);  }
       return  parseFloat(total).toFixed(2);
     },
