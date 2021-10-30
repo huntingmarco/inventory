@@ -230,7 +230,7 @@ class JournalController extends Controller
         ' acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
         ' Where UCase(Trim(b.grouptype)) = "D" Or ' .
         ' UCase(Trim(b.grouptype)) = "E" ' .
-        ' Group By a.item_id,a.item_name,b.group_id, b.group_name ' .
+        ' Group By a.item_id,a.item_name,b.group_id, b.group_name, b.grouptype ' .
         ' Order By b.grouptype, a.item_id');
 
 
@@ -300,7 +300,7 @@ class JournalController extends Controller
        ' Where UCase(Trim(b.grouptype)) = "A" ' .
        ' or UCase(Trim(b.grouptype)) = "B" ' .
        ' or UCase(Trim(b.grouptype)) = "C" ' .
-       ' Group By a.item_id, a.item_name,b.group_id, b.group_name ' .
+       ' Group By a.item_id, a.item_name,b.group_id, b.group_name, b.grouptype ' .
        ' Order By b.grouptype, a.item_id');
 
         //Get transaction and update amount to account item
@@ -348,7 +348,7 @@ class JournalController extends Controller
      ' acctgroups as b On Trim(a.group_id) = Trim(b.group_id) ' .
      ' Where UCase(Trim(b.grouptype)) = "D" Or ' .
      ' UCase(Trim(b.grouptype)) = "E" ' .
-     ' Group By a.item_id, a.item_name,b.group_id, b.group_name ' .
+     ' Group By a.item_id, a.item_name,b.group_id, b.group_name, b.grouptype ' .
      ' Order By b.grouptype, a.item_id');
 
 
