@@ -261,7 +261,7 @@ class JournalController extends Controller
           ->get();
 
         //refresh temp table
-       $dropTempTables = DB::statement('DROP TABLE IF EXISTS income' . $rdate . $request->user );
+       //$dropTempTables = DB::statement('DROP TABLE IF EXISTS income' . $rdate . $request->user );
 
         return response()->json($income);
 
@@ -433,10 +433,10 @@ class JournalController extends Controller
           ->get();
 
         //refresh temp table income
-       $dropTempTables = DB::statement('DROP TABLE IF EXISTS income' . $rdate . $request->user );
+       //$dropTempTables = DB::statement('DROP TABLE IF EXISTS income' . $rdate . $request->user );
 
         //refresh temp table balance sheet
-        $dropTempTables = DB::statement('DROP TABLE IF EXISTS balance' . $rdate . $request->user );
+        //$dropTempTables = DB::statement('DROP TABLE IF EXISTS balance' . $rdate . $request->user );
 
         return response()->json($balance);
 
