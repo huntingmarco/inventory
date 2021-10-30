@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
   <link href="{{ asset('backend/img/logo/logo.png') }}" rel="icon">
   <title>Hotel and Inventory</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css')}}">
