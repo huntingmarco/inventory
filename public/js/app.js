@@ -2683,12 +2683,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 //
 //
 //
@@ -2790,45 +2784,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       accounts: []
     };
   },
-  computed: {
-    totalDebit: function totalDebit() {
-      var total = 0;
-
-      var _iterator = _createForOfIteratorHelper(this.accounts),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var p = _step.value;
-          total += parseFloat(p.debit);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      return parseFloat(total).toFixed(2);
-    },
-    totalCredit: function totalCredit() {
-      var total = 0;
-
-      var _iterator2 = _createForOfIteratorHelper(this.accounts),
-          _step2;
-
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var p = _step2.value;
-          total += parseFloat(p.credit);
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
-
-      return parseFloat(total).toFixed(2);
-    }
+  computed: {// totalDebit(){
+    //     let total = 0;  
+    //     for(let p of this.accounts) 
+    //     {    total += parseFloat(p.debit);  }  
+    //     return  parseFloat(total).toFixed(2);
+    // },
+    // totalCredit(){
+    //     let total = 0;  
+    //     for(let p of this.accounts) 
+    //     {    total += parseFloat(p.credit);  }  
+    //     return  parseFloat(total).toFixed(2);
+    // }
   },
   methods: {
     generateTrialBalance: function generateTrialBalance() {
@@ -58990,21 +58957,7 @@ var render = function() {
                           0
                         ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "card-footer" }, [
-                          _c("tr", { staticClass: "bg-dark text-white" }, [
-                            _c("td", [_vm._v("Total Debit:")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$" + _vm._s(_vm.totalDebit))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("=")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Total Credit:")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$" + _vm._s(_vm.totalCredit))]),
-                            _vm._v(" "),
-                            _c("td")
-                          ])
-                        ])
+                        _vm._m(5)
                       ]
                     )
                   ]),
@@ -59081,6 +59034,22 @@ var staticRenderFns = [
         _c("th", [_vm._v("Debit")]),
         _vm._v(" "),
         _c("th", [_vm._v("Credit")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c("tr", { staticClass: "bg-dark text-white" }, [
+        _c("td", [_vm._v("Total Debit:")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("=")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Total Credit:")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }

@@ -56,10 +56,10 @@
                             <div class="card-footer">
                                 <tr class="bg-dark text-white">
                                     <td>Total Debit:</td>
-                                    <td>${{totalDebit}}</td>
+                                    <!-- <td>${{totalDebit}}</td> -->
                                     <td>=</td>
                                     <td>Total Credit:</td>
-                                    <td>${{totalCredit}}</td>
+                                    <!-- <td>${{totalCredit}}</td> -->
                                     <td></td>
                                 </tr>
                             </div>
@@ -102,18 +102,18 @@ data(){
     }
   },
   computed:{
-        totalDebit(){
-            let total = 0;  
-            for(let p of this.accounts) 
-            {    total += parseFloat(p.debit);  }  
-            return  parseFloat(total).toFixed(2);
-        },
-        totalCredit(){
-            let total = 0;  
-            for(let p of this.accounts) 
-            {    total += parseFloat(p.credit);  }  
-            return  parseFloat(total).toFixed(2);
-        }
+        // totalDebit(){
+        //     let total = 0;  
+        //     for(let p of this.accounts) 
+        //     {    total += parseFloat(p.debit);  }  
+        //     return  parseFloat(total).toFixed(2);
+        // },
+        // totalCredit(){
+        //     let total = 0;  
+        //     for(let p of this.accounts) 
+        //     {    total += parseFloat(p.credit);  }  
+        //     return  parseFloat(total).toFixed(2);
+        // }
     },
 
   methods: {
