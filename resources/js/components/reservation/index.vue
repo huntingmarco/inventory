@@ -42,7 +42,11 @@
                         <td>{{ reservation.name }}</td>
                         <td>{{ reservation.phone }}</td>
                         <td>{{ reservation.email }}</td>
-                        <td>{{ reservation.status }}</td>
+                        
+                        <td v-if="reservation.status == 'RESERVED'"><span class="badge badge-warning">{{ reservation.status }}</span></td>
+                        <td v-else="reservation.status == 'CANCELLED'"><span class="badge badge-danger">{{ reservation.status }}</span></td>
+                        <td v-else="reservation.status == 'CHECKIN'"><span class="badge badge-info">{{ reservation.status }}</span></td>
+                        <td v-else="reservation.status == 'CHECKOUT'"><span class="badge badge-success">{{ reservation.status }}</span></td>
             <td>
                 <router-link :to="{name: 'edit-reservation', params:{id:reservation.id}}" class="btn btn-sm btn-primary">Edit</router-link>
 
@@ -106,10 +110,11 @@ export default {
                 axios.post('/api/cancelreservation/'+id)
                 .then(()=>{
 
-                    this.reservations  = this.reservations.filter(reservation =>{
-                        return reservation.id != id
-                    });
-
+                    // this.reservations  = this.reservations.filter(reservation =>{
+                    //     return reservation.id != id
+                    // });
+                    Reload.$emit('AfterTransact');
+                    //Notification.cart_success()
                     
 
                 })
@@ -131,6 +136,9 @@ export default {
     },
     created(){
         this.allReservation();
+        Reload.$on('AfterTransact',()=>{
+          this.allReservation();
+        });
     }
   
 }

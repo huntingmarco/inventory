@@ -59,7 +59,7 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Product Name</th>
+                                    <th>Customer Name</th>
                                     <th>Quantity</th>
                                     <th>SubTotal</th>
                                     <th>Vat</th>

@@ -82,7 +82,8 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservation = DB::table('reservations')->where('id',$id)->first();
+        return response()->json($reservation);
     }
 
   
