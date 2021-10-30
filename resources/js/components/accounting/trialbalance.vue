@@ -120,7 +120,7 @@ data(){
    
     generateTrialBalance(){
         var data = {date:this.date, user: User.name()} //v-model name -> date:
-        axios.post('/api/trialbalance/', data)
+        axios.post('/api/trialbalance', data)
         .then(({data})=>{this.accounts = data;console.log(this.accounts)})
         .catch()
     },
