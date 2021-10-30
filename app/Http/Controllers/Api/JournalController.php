@@ -142,14 +142,13 @@ class JournalController extends Controller
 
     public function GenerateTrialBalance(Request $request)
     {
-        //$rdate = DateTime::createFromFormat('Y-m-d', $request->date)->format('ymd');
-        $settings = DB::table('settings')->first();
-        $sysdate = DateTime::createFromFormat('Y-m-d', $settings->sysdate)->format('ymd');
+        $rdate = DateTime::createFromFormat('Y-m-d', $request->date)->format('ymd');
+        
         //refresh temp table
-        $dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $sysdate . $request->user );
+        $dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $rdate . $request->user );
 
         //Create temporary table
-       $createIncomeTable = DB::unprepared('create table trial' . $sysdate . $request->user . 
+       $createIncomeTable = DB::unprepared('create table trial' . $rdate . $request->user . 
        ' (id bigint not null auto_increment,' .
        'item_id varchar(20) not null default 0,' .
        'item_name varchar(50) not null default "",' . 
@@ -176,7 +175,7 @@ class JournalController extends Controller
     //    ' Where a.trndate = "' . $request->date .  '" ' .
     //    ' Order By b.grouptype, a.item_id');
 
-       DB::statement('INSERT INTO trial' . $sysdate . $request->user . ' (item_name,debit,credit) ' .
+       DB::statement('INSERT INTO trial' . $rdate . $request->user . ' (item_name,debit,credit) ' .
        ' Select  c.item_name, sum(if(a.entry="DR",a.amount,0)) As tdebit, ' .
        ' sum(if(a.entry="CR",a.amount,0)) As tcredit  ' .
        ' From trn as a Inner Join ' .
@@ -188,12 +187,12 @@ class JournalController extends Controller
 
 
 
-       $trial = DB::table('trial' . $sysdate . $request->user)
-        ->select('trial' . $sysdate . $request->user . '.*')
+       $trial = DB::table('trial' . $rdate . $request->user)
+        ->select('trial' . $rdate . $request->user . '.*')
           ->get();
 
        //refresh temp table
-       $dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $sysdate . $request->user );
+       //$dropTempTables = DB::statement('DROP TABLE IF EXISTS trial' . $rdate . $request->user );
 
         return response()->json($trial);
 
