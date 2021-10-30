@@ -281,7 +281,7 @@ methods: {
     },
 
     getsettings(){
-        axios.get('/api/settings/')
+        axios.get('/api/settings')
         .then(({data}) => (this.settings = data))
         .catch()
     },
