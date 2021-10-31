@@ -3228,6 +3228,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     if (User.loggedIn()) {
@@ -60212,6 +60214,10 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
+                        _c("label", { staticClass: "font-weight-bold small" }, [
+                          _vm._v("email:admin@gmail.com")
+                        ]),
+                        _vm._v(" "),
                         _vm.errors.email
                           ? _c("small", { staticClass: "text-danger" }, [
                               _vm._v(_vm._s(_vm.errors.email[0]))
@@ -60254,7 +60260,11 @@ var render = function() {
                           ? _c("small", { staticClass: "text-danger" }, [
                               _vm._v(_vm._s(_vm.errors.password[0]))
                             ])
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("label", { staticClass: "font-weight-bold small" }, [
+                          _vm._v("password:admin")
+                        ])
                       ]),
                       _vm._v(" "),
                       _vm._m(1),
@@ -60311,7 +60321,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center" }, [
-      _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [_vm._v("Login")])
+      _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
+        _vm._v("HMS and Inventory")
+      ])
     ])
   },
   function() {
