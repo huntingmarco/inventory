@@ -33,7 +33,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="reservation in filtersearch" :key="reservation.id">
+                      <tr v-for="reservation in reservations.data" :key="reservation.id">
                         <td>{{ reservation.date_from }}</td>
                         <td>{{ reservation.date_to }}</td>
                         <td>{{ reservation.roomcategory_name }}</td>
@@ -56,6 +56,7 @@
                       
                     </tbody>
                   </table>
+                  <pagination :meta="meta" v-on:pagination="allReservation"></pagination>
                 </div>
                 <div class="card-footer"></div>
               </div>
@@ -70,7 +71,7 @@
 <script type="text/javascript">
 
 export default {
-
+    
     created(){
     if (!User.loggedIn()) {
         this.$router.push({ name: '/' })
@@ -80,6 +81,7 @@ export default {
         return {
             reservations:[],
             searchItem: '',
+            meta:{}
         }
     },
     computed:{
@@ -91,9 +93,17 @@ export default {
     },
 
     methods: {
-        allReservation(){
-        axios.get('/api/reservation/')
-        .then(({data}) => {this.reservations = data;console.log(this.reservations)})
+        allReservation(page){
+        axios.get('/api/reservation/',{
+          params:{
+            page
+          }
+        }
+        
+        )
+        .then((response) => {
+          this.reservations = response.data
+          this.meta = response.data.meta})
         .catch()
         },
         deleteReservation(id){

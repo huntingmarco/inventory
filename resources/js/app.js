@@ -5,7 +5,7 @@ require('./bootstrap');
 
 
 // vue pagination
-Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('pagination', require('./components/PaginationComponent.vue').default);
 
 //window.Vue = require('vue').default;
 import Vue from 'vue'

@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use DB;
 use DateTime;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Http\Resources\ReservationResource;
 
 class ReservationController extends Controller
 {
@@ -20,15 +21,20 @@ class ReservationController extends Controller
     {
         // $reservation = DB::table('reservations')->orderBy('id','ASC')->get();
         // return response()->json($reservation);
+ 
+        // return new ReservationResource(DB::table('reservations')
+        // ->join('room_categories','reservations.idcategory','room_categories.id')
+        // ->join('rooms','reservations.idroom','rooms.id')
+        // ->join('customers','reservations.customer_id','customers.id')
+        // ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
+        // ->orderBy('reservations.id','DESC')
+        // ->paginate(1));
 
-        $reservation = DB::table('reservations')
-                    ->join('room_categories','reservations.idcategory','room_categories.id')
-                    ->join('rooms','reservations.idroom','rooms.id')
-                    ->join('customers','reservations.customer_id','customers.id')
-                    ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
-                    ->orderBy('reservations.id','DESC')
-                    ->get();
-                    return response()->json($reservation);
+        return new ReservationResource(Reservation::join('room_categories','reservations.idcategory','room_categories.id')
+        ->join('rooms','reservations.idroom','rooms.id')
+        ->join('customers','reservations.customer_id','customers.id')
+        ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
+        ->orderBy('reservations.id','DESC')->paginate(10));
     }
 
 
