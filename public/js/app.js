@@ -6087,6 +6087,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_created$data$created = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -6152,6 +6153,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
 //
 //
 //
@@ -9175,7 +9177,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_search_select_dist_VueSearchSelect_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-search-select/dist/VueSearchSelect.css */ "./node_modules/vue-search-select/dist/VueSearchSelect.css");
 /* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
 /* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
-var _created$data$created;
+var _props$created$data$c;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -9316,13 +9318,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_created$data$created = {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_props$created$data$c = {
+  props: ['editrecord'],
   created: function created() {
     if (!User.loggedIn()) {
       this.$router.push({
@@ -9332,75 +9331,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      form: {
-        idcategory: null,
-        idroom: null,
-        date_from: null,
-        date_to: null,
-        numrooms: null,
-        customer_id: null,
-        phone: null,
-        email: null,
-        notes: null
-      },
       errors: {},
       room_categories: {},
       rooms: {},
       customers: []
     };
   }
-}, _defineProperty(_created$data$created, "created", function created() {
+}, _defineProperty(_props$created$data$c, "created", function created() {
   var _this = this;
 
-  var id = this.$route.params.id;
-  axios.get('/api/reservation/' + id).then(function (_ref) {
+  axios.get('/api/roomcategory/').then(function (_ref) {
     var data = _ref.data;
-    return _this.form = data;
-  })["catch"](console.log('error'));
-  axios.get('/api/roomcategory/').then(function (_ref2) {
-    var data = _ref2.data;
     return _this.room_categories = data;
   });
-  axios.get('/api/room/').then(function (_ref3) {
-    var data = _ref3.data;
+  axios.get('/api/room/').then(function (_ref2) {
+    var data = _ref2.data;
     return _this.rooms = data;
-  }); // axios.get('/api/room/categ/'+this.idcategory)
-  // .then(response => {this.rooms = response.data;})
-  // .catch(error => this.errors = error.response.data.errors)
-
-  axios.get('/api/customer/').then(function (_ref4) {
-    var data = _ref4.data;
+  });
+  axios.get('/api/customer/').then(function (_ref3) {
+    var data = _ref3.data;
     return _this.customers = data;
   });
-}), _defineProperty(_created$data$created, "methods", {
+}), _defineProperty(_props$created$data$c, "methods", {
   reservationUpdate: function reservationUpdate() {
-    var _this2 = this;
+    var config = {
+      headers: {
+        "Content-type": "multipart/form-data"
+      }
+    };
+    var formData = new FormData();
+    formData.append('idcategory', this.editrecord.idcategory);
+    formData.append('idroom', this.editrecord.idroom);
+    formData.append('date_from', this.editrecord.date_from);
+    formData.append('date_to', this.editrecord.date_to);
+    formData.append('numrooms', this.editrecord.numrooms);
+    formData.append('customer_id', this.editrecord.customer_id);
+    formData.append('phone', this.editrecord.phone);
+    formData.append('email', this.editrecord.email);
+    formData.append('notes', this.editrecord.notes);
+    formData.append('_method', 'PUT');
+    axios.post('/api/reservation/' + this.editrecord.id, formData, config).then(function (response) {
+      $('#exampleModal').modal('hide'); // this.$emit('recordUpdated',response)
 
-    var id = this.$route.params.id;
-    axios.patch('/api/reservation/' + id, this.form).then(function (res) {
-      _this2.$router.push({
-        name: 'reservation'
+      Reload.$emit('AfterTransact');
+      $('.modal-backdrop').remove();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Your changes has been saved',
+        showConfirmButton: false,
+        timer: 1500
       });
-
-      Notification.success();
     })["catch"](function (error) {
-      return _this2.errors = error.response.data.errors;
+      console.log(error);
     });
   },
   changeCateg: function changeCateg(event) {
-    var _this3 = this;
+    var _this2 = this;
 
     this.idcategory = event.target.value;
     axios.get('/api/room/categ/' + this.idcategory).then(function (response) {
-      _this3.rooms = response.data;
+      _this2.rooms = response.data;
       console.log(response);
     })["catch"](function (error) {
-      return _this3.errors = error.response.data.errors;
+      return _this2.errors = error.response.data.errors;
     });
   }
-}), _defineProperty(_created$data$created, "components", {
+}), _defineProperty(_props$created$data$c, "components", {
   ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__.ModelListSelect
-}), _created$data$created);
+}), _props$created$data$c);
 
 /***/ }),
 
@@ -9487,6 +9486,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -9498,6 +9502,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       reservations: [],
+      myreservation: [],
       searchItem: '',
       meta: {}
     };
@@ -9524,17 +9529,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.meta = response.data.meta;
       })["catch"]();
     },
-    deleteReservation: function deleteReservation(id) {
+    edit: function edit(id) {
       var _this3 = this;
+
+      // let id = this.$route.params.id;
+      axios.get('/api/reservation/' + id).then(function (_ref) {
+        var data = _ref.data;
+        return _this3.myreservation = data;
+      })["catch"](function (error) {
+        alert('unable to to fetch data');
+      });
+    },
+    deleteReservation: function deleteReservation(id) {
+      var _this4 = this;
 
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
-        showCancelButton: true,
+        showDenyButton: true,
+        showCloseButton: false,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, cancel it!'
+        confirmButtonText: 'Yes, cancel it!',
+        denyButtonText: 'No'
       }).then(function (result) {
         if (result.isConfirmed) {
           axios.post('/api/cancelreservation/' + id).then(function () {
@@ -9543,7 +9561,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             // });
             Reload.$emit('AfterTransact'); //Notification.cart_success()
           })["catch"](function () {
-            _this3.$router.push({
+            _this4.$router.push({
               name: 'reservation'
             });
           });
@@ -9553,11 +9571,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }
 }, "created", function created() {
-  var _this4 = this;
+  var _this5 = this;
 
   this.allReservation();
   Reload.$on('AfterTransact', function () {
-    _this4.allReservation();
+    _this5.allReservation();
   });
 }));
 
@@ -10863,7 +10881,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // vue pagination
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.component('pagination', __webpack_require__(/*! ./components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue").default); //window.Vue = require('vue').default;
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('pagination', __webpack_require__(/*! ./components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('editReservation', __webpack_require__(/*! ./components/reservation/edit.vue */ "./resources/js/components/reservation/edit.vue").default); //window.Vue = require('vue').default;
 
 
  //import Dropdown from 'vue-simple-search-dropdown';
@@ -10886,7 +10905,7 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 1500,
   timerProgressBar: true,
   didOpen: function didOpen(toast) {
     toast.addEventListener('mouseenter', (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().stopTimer));
@@ -70377,122 +70396,63 @@ var render = function() {
   return _c("div", [
     _c(
       "div",
-      { staticClass: "row" },
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLongTitle",
+          "aria-hidden": "true"
+        }
+      },
       [
         _c(
-          "router-link",
-          { staticClass: "btn btn-primary", attrs: { to: "/reservation" } },
-          [_vm._v("Back")]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-xl-12 col-lg-12 col-md-12" }, [
-        _c("div", { staticClass: "card shadow-sm my-5" }, [
-          _c("div", { staticClass: "card-body p-0" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("div", { staticClass: "login-form" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      staticClass: "user",
-                      attrs: { enctype: "multipart/form-data" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.reservationUpdate.apply(null, arguments)
-                        }
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "user",
+                    attrs: { enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.reservationUpdate.apply(null, arguments)
                       }
-                    },
-                    [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Room Category")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.idcategory,
-                                    expression: "form.idcategory"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "exampleFormControlSelect1" },
-                                on: {
-                                  change: [
-                                    function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.form,
-                                        "idcategory",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    },
-                                    function($event) {
-                                      return _vm.changeCateg($event)
-                                    }
-                                  ]
-                                }
-                              },
-                              _vm._l(_vm.room_categories, function(category) {
-                                return _c(
-                                  "option",
-                                  { domProps: { value: category.id } },
-                                  [_vm._v(_vm._s(category.roomcategory_name))]
-                                )
-                              }),
-                              0
-                            )
-                          ]),
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Room Category")]
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Room ID")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.form.idroom,
-                                    expression: "form.idroom"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "exampleFormControlSelect1" },
-                                on: {
-                                  change: function($event) {
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.editrecord.idcategory,
+                                  expression: "editrecord.idcategory"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "exampleFormControlSelect1" },
+                              on: {
+                                change: [
+                                  function($event) {
                                     var $$selectedVal = Array.prototype.filter
                                       .call($event.target.options, function(o) {
                                         return o.selected
@@ -70503,352 +70463,395 @@ var render = function() {
                                         return val
                                       })
                                     _vm.$set(
-                                      _vm.form,
-                                      "idroom",
+                                      _vm.editrecord,
+                                      "idcategory",
                                       $event.target.multiple
                                         ? $$selectedVal
                                         : $$selectedVal[0]
                                     )
-                                  }
-                                }
-                              },
-                              _vm._l(_vm.rooms, function(room) {
-                                return _c(
-                                  "option",
-                                  { domProps: { value: room.id } },
-                                  [_vm._v(_vm._s(room.room_name))]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Date From")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.date_from,
-                                  expression: "form.date_from"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "date",
-                                id: "exampleInputFirstName1",
-                                placeholder: "Date from"
-                              },
-                              domProps: { value: _vm.form.date_from },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "date_from",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.address
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(_vm._s(_vm.errors.date_from[0]))
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Date To")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.date_to,
-                                  expression: "form.date_to"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "date",
-                                id: "exampleInputFirstName",
-                                placeholder: "Date to"
-                              },
-                              domProps: { value: _vm.form.date_to },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "date_to",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.address
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(_vm._s(_vm.errors.date_to[0]))
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-4" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("No. of Rooms")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.numrooms,
-                                  expression: "form.numrooms"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "number",
-                                id: "exampleInputFirstName",
-                                placeholder: "No. of Rooms"
-                              },
-                              domProps: { value: _vm.form.numrooms },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "numrooms",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.address
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(_vm._s(_vm.errors.numrooms[0]))
-                                ])
-                              : _vm._e()
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("div", { staticClass: "form-row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "col-md-6" },
-                            [
-                              _c(
-                                "label",
-                                { attrs: { for: "exampleFormControlSelect1" } },
-                                [_vm._v("Customer")]
-                              ),
-                              _vm._v(" "),
-                              _c("model-list-select", {
-                                attrs: {
-                                  list: _vm.customers,
-                                  "option-value": "id",
-                                  "option-text": "name",
-                                  placeholder: "select item"
-                                },
-                                model: {
-                                  value: _vm.form.customer_id,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "customer_id", $$v)
                                   },
-                                  expression: "form.customer_id"
-                                }
-                              })
-                            ],
-                            1
+                                  function($event) {
+                                    return _vm.changeCateg($event)
+                                  }
+                                ]
+                              }
+                            },
+                            _vm._l(_vm.room_categories, function(category) {
+                              return _c(
+                                "option",
+                                { domProps: { value: category.id } },
+                                [_vm._v(_vm._s(category.roomcategory_name))]
+                              )
+                            }),
+                            0
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Room ID")]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Phone")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
+                          _c(
+                            "select",
+                            {
                               directives: [
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form.phone,
-                                  expression: "form.phone"
+                                  value: _vm.editrecord.idroom,
+                                  expression: "editrecord.idroom"
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                id: "exampleInputFirstName"
-                              },
-                              domProps: { value: _vm.form.phone },
+                              attrs: { id: "exampleFormControlSelect1" },
                               on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
                                   _vm.$set(
-                                    _vm.form,
-                                    "phone",
-                                    $event.target.value
+                                    _vm.editrecord,
+                                    "idroom",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
                                   )
                                 }
                               }
+                            },
+                            _vm._l(_vm.rooms, function(room) {
+                              return _c(
+                                "option",
+                                { domProps: { value: room.id } },
+                                [_vm._v(_vm._s(room.room_name))]
+                              )
                             }),
-                            _vm._v(" "),
-                            _vm.errors.phone
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    " " + _vm._s(_vm.errors.phone[0]) + " "
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
+                            0
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "col-md-6" }, [
-                            _c(
-                              "label",
-                              { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Email")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.email,
-                                  expression: "form.email"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                id: "exampleInputFirstName"
-                              },
-                              domProps: { value: _vm.form.email },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "email",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.email
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    " " + _vm._s(_vm.errors.email[0]) + " "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]),
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Date From")]
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-6" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.date_from,
+                                expression: "editrecord.date_from"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              id: "exampleInputFirstName1",
+                              placeholder: "Date from"
+                            },
+                            domProps: { value: _vm.editrecord.date_from },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "date_from",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.address
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.date_from[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Date To")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.date_to,
+                                expression: "editrecord.date_to"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "date",
+                              id: "exampleInputFirstName",
+                              placeholder: "Date to"
+                            },
+                            domProps: { value: _vm.editrecord.date_to },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "date_to",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.address
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.date_to[0]))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("No. of Rooms")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.numrooms,
+                                expression: "editrecord.numrooms"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "exampleInputFirstName",
+                              placeholder: "No. of Rooms"
+                            },
+                            domProps: { value: _vm.editrecord.numrooms },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "numrooms",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.address
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(_vm._s(_vm.errors.numrooms[0]))
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-md-6" },
+                          [
                             _c(
                               "label",
                               { attrs: { for: "exampleFormControlSelect1" } },
-                              [_vm._v("Notes")]
+                              [_vm._v("Customer")]
                             ),
                             _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.notes,
-                                  expression: "form.notes"
-                                }
-                              ],
-                              staticClass: "form-control",
+                            _c("model-list-select", {
                               attrs: {
-                                type: "text",
-                                id: "exampleInputFirstName"
+                                list: _vm.customers,
+                                "option-value": "id",
+                                "option-text": "name",
+                                placeholder: "select item"
                               },
-                              domProps: { value: _vm.form.notes },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "notes",
-                                    $event.target.value
-                                  )
-                                }
+                              model: {
+                                value: _vm.editrecord.customer_id,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.editrecord, "customer_id", $$v)
+                                },
+                                expression: "editrecord.customer_id"
                               }
-                            }),
-                            _vm._v(" "),
-                            _vm.errors.notes
-                              ? _c("small", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    " " + _vm._s(_vm.errors.notes[0]) + " "
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Phone")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.phone,
+                                expression: "editrecord.phone"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "exampleInputFirstName"
+                            },
+                            domProps: { value: _vm.editrecord.phone },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "phone",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.phone
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(" " + _vm._s(_vm.errors.phone[0]) + " ")
+                              ])
+                            : _vm._e()
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-center" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-center" })
-                ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Email")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.email,
+                                expression: "editrecord.email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "exampleInputFirstName"
+                            },
+                            domProps: { value: _vm.editrecord.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "email",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.email
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(" " + _vm._s(_vm.errors.email[0]) + " ")
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "exampleFormControlSelect1" } },
+                            [_vm._v("Notes")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editrecord.notes,
+                                expression: "editrecord.notes"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "exampleInputFirstName"
+                            },
+                            domProps: { value: _vm.editrecord.notes },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editrecord,
+                                  "notes",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.notes
+                            ? _c("small", { staticClass: "text-danger" }, [
+                                _vm._v(" " + _vm._s(_vm.errors.notes[0]) + " ")
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]
+                )
               ])
             ])
-          ])
-        ])
-      ])
-    ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -70856,10 +70859,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
-        _vm._v("Update Reservation")
-      ])
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Update Reservation")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   },
   function() {
@@ -70867,14 +70885,29 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-block col-md-6",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Update")]
-      )
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block col-md-6",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Update")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { type: "button", "data-dismiss": "modal" }
+            },
+            [_vm._v("Close")]
+          )
+        ])
+      ])
     ])
   }
 ]
@@ -70962,7 +70995,7 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.reservations.data, function(reservation) {
-                      return _c("tr", { key: reservation.id }, [
+                      return _c("tr", { key: reservation.r_id }, [
                         _c("td", [_vm._v(_vm._s(reservation.date_from))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(reservation.date_to))]),
@@ -70997,43 +71030,48 @@ var render = function() {
                               )
                             ]),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-sm btn-primary",
-                                attrs: {
-                                  to: {
-                                    name: "edit-reservation",
-                                    params: { id: reservation.id }
-                                  }
-                                }
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#exampleModal"
                               },
-                              [_vm._v("Edit")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-sm btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteReservation(reservation.id)
-                                  }
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.edit(reservation.r_id)
                                 }
-                              },
-                              [
-                                _c("font", { attrs: { color: "#fffffff" } }, [
-                                  _vm._v("Cancel")
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Edit\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteReservation(reservation.r_id)
+                                }
+                              }
+                            },
+                            [
+                              _c("font", { attrs: { color: "#fffffff" } }, [
+                                _vm._v("Cancel")
+                              ])
+                            ],
+                            1
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -71044,6 +71082,10 @@ var render = function() {
               _c("pagination", {
                 attrs: { meta: _vm.meta },
                 on: { pagination: _vm.allReservation }
+              }),
+              _vm._v(" "),
+              _c("editReservation", {
+                attrs: { editrecord: _vm.myreservation }
               })
             ],
             1

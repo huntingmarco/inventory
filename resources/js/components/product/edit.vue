@@ -234,6 +234,7 @@ data(){
     },
     productUpdate(){
         let id = this.$route.params.id;
+       
       axios.patch('/api/product/'+id, this.form)
       .then(res => {
           this.$router.push({name: 'product'})

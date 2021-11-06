@@ -6,6 +6,7 @@ require('./bootstrap');
 
 // vue pagination
 Vue.component('pagination', require('./components/PaginationComponent.vue').default);
+Vue.component('editReservation', require('./components/reservation/edit.vue').default);
 
 //window.Vue = require('vue').default;
 import Vue from 'vue'
@@ -37,7 +38,7 @@ const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 1500,
   timerProgressBar: true,
   didOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)

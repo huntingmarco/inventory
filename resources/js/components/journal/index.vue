@@ -100,7 +100,7 @@
                                             <td>{{ getjournal.entry_date }}</td>
                                             <td>
                                                 <router-link :to="{name: 'edit-journal', params:{id:getjournal.id}}" class="btn btn-sm btn-primary">Edit</router-link>
-
+                                                
                                                 <a @click="cancelJournal(getjournal.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Cancel</font></a>
                                             </td>
                                         </tr>
@@ -115,6 +115,7 @@
                                         </tbody>
                                       
                                 </table>
+                                
                             </div>
                         </div> 
                     </div> 

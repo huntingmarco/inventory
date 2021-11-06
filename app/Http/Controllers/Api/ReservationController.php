@@ -19,22 +19,26 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        // $reservation = DB::table('reservations')->orderBy('id','ASC')->get();
-        // return response()->json($reservation);
- 
-        // return new ReservationResource(DB::table('reservations')
-        // ->join('room_categories','reservations.idcategory','room_categories.id')
-        // ->join('rooms','reservations.idroom','rooms.id')
-        // ->join('customers','reservations.customer_id','customers.id')
-        // ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
-        // ->orderBy('reservations.id','DESC')
-        // ->paginate(1));
+       
 
         return new ReservationResource(Reservation::join('room_categories','reservations.idcategory','room_categories.id')
         ->join('rooms','reservations.idroom','rooms.id')
         ->join('customers','reservations.customer_id','customers.id')
-        ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.*')
+        ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.id as r_id','reservations.*')
         ->orderBy('reservations.id','DESC')->paginate(10));
+
+        // return view('album.index');
+        
+        
+    }
+
+    public function getReservations(){
+        // return new AlbumResource(Album::with('category')->where('user_id',auth()->user()->id)->paginate(3));
+        return new ReservationResource(Reservation::join('room_categories','reservations.idcategory','room_categories.id')
+        ->join('rooms','reservations.idroom','rooms.id')
+        ->join('customers','reservations.customer_id','customers.id')
+        ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.id as r_id','reservations.*')
+        ->orderBy('reservations.id','DESC')->paginate(1));
     }
 
 
@@ -101,19 +105,39 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $data = array();
-        $data['idcategory'] = $request->idcategory;
-        $data['idroom'] = $request->idroom;
-        $data['date_from'] = $request->date_from;
-        $data['date_to'] = $request->date_to;
-        $data['numrooms'] = $request->numrooms;
-        $data['customer_id'] = $request->customer_id;
-        $data['email'] = $request->email;
-        $data['phone'] = $request->phone;
-        $data['notes'] = $request->notes;
-        $user = DB::table('reservations')->where('id',$id)->update($data);
+    // public function update(Request $request, $id)
+    // {
+    //     $data = array();
+    //     $data['idcategory'] = $request->idcategory;
+    //     $data['idroom'] = $request->idroom;
+    //     $data['date_from'] = $request->date_from;
+    //     $data['date_to'] = $request->date_to;
+    //     $data['numrooms'] = $request->numrooms;
+    //     $data['customer_id'] = $request->customer_id;
+    //     $data['email'] = $request->email;
+    //     $data['phone'] = $request->phone;
+    //     $data['notes'] = $request->notes;
+    //     $user = DB::table('reservations')->where('id',$id)->update($data);
+    // }
+
+    public function update($id,Request $request){
+       
+        $reservation = Reservation::find($id);
+        $reservation->idcategory = $request->idcategory;
+        $reservation->idroom = $request->idroom;
+        $reservation->date_from = $request->date_from;
+        $reservation->date_to = $request->date_to;
+        $reservation->numrooms = $request->numrooms;
+        $reservation->customer_id = $request->customer_id;
+        $reservation->email = $request->email;
+        $reservation->phone = $request->phone;
+        $reservation->notes = $request->notes;
+       
+       
+        $success =  $reservation->save();
+        if($success){
+            return response()->json($this->getReservations());
+        }
     }
 
     public function cancelReservation($id)

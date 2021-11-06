@@ -20,6 +20,7 @@
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
+                    
                         <th>Date From</th>
                         <th>Date To</th>
                         <th>Category</th>
@@ -33,7 +34,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="reservation in reservations.data" :key="reservation.id">
+                      <tr v-for="reservation in reservations.data" :key="reservation.r_id">
+                    
                         <td>{{ reservation.date_from }}</td>
                         <td>{{ reservation.date_to }}</td>
                         <td>{{ reservation.roomcategory_name }}</td>
@@ -47,16 +49,19 @@
                         <td v-else="reservation.status == 'CANCELLED'"><span class="badge badge-danger">{{ reservation.status }}</span></td>
                         <td v-else="reservation.status == 'CHECKIN'"><span class="badge badge-info">{{ reservation.status }}</span></td>
                         <td v-else="reservation.status == 'CHECKOUT'"><span class="badge badge-success">{{ reservation.status }}</span></td>
-            <td>
-                <router-link :to="{name: 'edit-reservation', params:{id:reservation.id}}" class="btn btn-sm btn-primary">Edit</router-link>
-
-                <a @click="deleteReservation(reservation.id)" class="btn btn-sm btn-danger"><font color="#fffffff">Cancel</font></a>
-            </td>
+                        <td>
+                            <!-- <router-link :to="{name: 'edit-reservation', params:{id:reservation.id}}" class="btn btn-sm btn-primary" >Edit</router-link> -->
+                            <button @click.prevent="edit(reservation.r_id)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Edit
+                            </button>
+                            <a @click="deleteReservation(reservation.r_id)" class="btn btn-sm btn-danger"><font color="#fffffff">Cancel</font></a>
+                        </td>
                       </tr>
                       
                     </tbody>
                   </table>
                   <pagination :meta="meta" v-on:pagination="allReservation"></pagination>
+                  <editReservation :editrecord="myreservation" ></editReservation>
                 </div>
                 <div class="card-footer"></div>
               </div>
@@ -80,6 +85,7 @@ export default {
     data(){
         return {
             reservations:[],
+            myreservation:[],
             searchItem: '',
             meta:{}
         }
@@ -94,27 +100,42 @@ export default {
 
     methods: {
         allReservation(page){
-        axios.get('/api/reservation/',{
-          params:{
-            page
-          }
-        }
-        
-        )
-        .then((response) => {
-          this.reservations = response.data
-          this.meta = response.data.meta})
-        .catch()
+                axios.get('/api/reservation/',{
+                  params:{
+                    page
+                  }
+                }
+                
+                )
+                .then((response) => {
+                  this.reservations = response.data
+                  this.meta = response.data.meta})
+                .catch()
         },
+
+        edit(id){
+                  // let id = this.$route.params.id;
+               
+                axios.get('/api/reservation/'+id)
+                .then(({data})=>(this.myreservation = data))
+                .catch((error)=>{
+                  alert('unable to to fetch data')
+                })
+			  },
+
+       
         deleteReservation(id){
+         
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
-            showCancelButton: true,
+            showDenyButton: true,
+            showCloseButton: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, cancel it!'
+            confirmButtonText: 'Yes, cancel it!',
+            denyButtonText: 'No',
             }).then((result) => {
             if (result.isConfirmed) {
                 axios.post('/api/cancelreservation/'+id)
