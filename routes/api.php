@@ -26,6 +26,7 @@ Route::apiResource('/product','App\Http\Controllers\Api\ProductController');
 Route::apiResource('/reservation','App\Http\Controllers\Api\ReservationController');
 Route::Post('/cancelreservation/{id}','App\Http\Controllers\Api\ReservationController@cancelReservation');
 // Route::put('/reservation/{id}/edit','App\Http\Controllers\Api\ReservationController');
+Route::Get('/search_reservation', 'App\Http\Controllers\Api\ReservationController@search_reservation_by_key');
 
 Route::apiResource('/expense','App\Http\Controllers\Api\ExpenseController');
 Route::Post('/myexpense','App\Http\Controllers\Api\ExpenseController@myExpenses');

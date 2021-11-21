@@ -38,10 +38,28 @@ class ReservationController extends Controller
         ->join('rooms','reservations.idroom','rooms.id')
         ->join('customers','reservations.customer_id','customers.id')
         ->select('room_categories.roomcategory_name','rooms.room_name','customers.name','reservations.id as r_id','reservations.*')
-        ->orderBy('reservations.id','DESC')->paginate(1));
+        ->orderBy('reservations.id','DESC')->paginate(10));
     }
 
+    public function search_reservation_by_key(){
+        
+   
 
+        $key = \Request::get('q');
+        $reservation = Reservation::join('room_categories','reservations.idcategory','room_categories.id')
+        ->join('rooms','reservations.idroom','rooms.id')
+        ->join('customers','reservations.customer_id','customers.id')
+        ->select('room_categories.roomcategory_name','rooms.room_name','customers.name as name','reservations.id as r_id','reservations.*')
+        ->where('name','LIKE',"%{$key}%")->get();
+
+        //return response()->json(['reservation' => $reservation],Response::HTTP_OK);
+       
+        return new ReservationResource($reservation);
+
+        
+    }
+
+  
 
     /**
      * Store a newly created resource in storage.
@@ -79,7 +97,7 @@ class ReservationController extends Controller
             $reservation->email = $request->email;
             $reservation->notes = $request->notes;
             $reservation->status = 'RESERVED';
-           
+            $reservation->user = auth()->models()->user()->id;
             $reservation->save(); 
    
     }

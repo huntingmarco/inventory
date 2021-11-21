@@ -18,6 +18,9 @@ class Reservation extends Model
         'customer_id',
         'phone',
         'email',
-        'notes'
+        'notes',
+        'status',
+        'remarks',
+        'user'
     ];
 }

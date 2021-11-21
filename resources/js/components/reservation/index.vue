@@ -6,7 +6,7 @@
 
     </div>
     <br>
-        <input type="text" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Customer">
+        <input type="text" @keyup="searchReservation" v-model="searchItem" class="form-control" style="width: 300px;" placeholder="Search Customer">
     </br>
 
     <div class="row">
@@ -74,6 +74,7 @@
 </template>
 
 <script type="text/javascript">
+import _ from "lodash";
 
 export default {
     
@@ -92,6 +93,7 @@ export default {
     },
     computed:{
         filtersearch(){
+             
             return this.reservations.filter(reservation =>{
                 return reservation.name.match(this.searchItem)
             })
@@ -108,10 +110,21 @@ export default {
                 
                 )
                 .then((response) => {
-                  this.reservations = response.data
-                  this.meta = response.data.meta})
+                  this.reservations = response.data;
+                  this.meta = response.data.meta;
+                  console.log(this.reservations);})
                 .catch()
         },
+        searchReservation:_.debounce(function(){
+          
+          
+          //axios.get('/api/search_reservation/'+this.searchItem)
+          axios.get('/api/search_reservation?q='+this.searchItem)
+                .then((response)=>{
+                this.reservations = response.data;
+                })
+                .catch()
+        }),
 
         edit(id){
                   // let id = this.$route.params.id;

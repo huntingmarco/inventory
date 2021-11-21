@@ -56,20 +56,20 @@
                     <div class="col-md-4">
                         <label for="exampleFormControlSelect1">Date From</label>
                         <input type="date" class="form-control" id="exampleInputFirstName1" placeholder="Date from" v-model="form.date_from">
-                        <small class="text-danger" v-if="errors.address">{{ errors.date_from[0] }}</small>
+                        <small class="text-danger" v-if="errors.date_from">{{ errors.date_from[0] }}</small>
 
                     </div>
 
                     <div class="col-md-4">
                         <label for="exampleFormControlSelect1">Date To</label>
                         <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Date to" v-model="form.date_to">
-                        <small class="text-danger" v-if="errors.address">{{ errors.date_to[0] }}</small>   
+                        <small class="text-danger" v-if="errors.date_to">{{ errors.date_to[0] }}</small>   
                     </div>   
 
                     <div class="col-md-4">
                         <label for="exampleFormControlSelect1">No. of Rooms</label>
                         <input type="number" class="form-control" id="exampleInputFirstName" placeholder="No. of Rooms" v-model="form.numrooms">
-                        <small class="text-danger" v-if="errors.address">{{ errors.numrooms[0] }}</small>   
+                        <small class="text-danger" v-if="errors.numrooms">{{ errors.numrooms[0] }}</small>   
                     </div> 
             </div>
         </div>
@@ -187,8 +187,10 @@ import { ModelListSelect } from 'vue-search-select';
       .then(res => {
           this.$router.push({name: 'reservation'})
           Notification.success();
-        })
-        .catch(error => this.errors = error.response.data.errors)
+        }).catch((error)=>{
+					console.log(error)
+					this.errors = error.response.data.errors
+				})
     },
 
     changeCateg (event) {
